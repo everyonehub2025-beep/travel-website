@@ -1,0 +1,76 @@
+/*
+ * Shared styling for theme-level forms: newsletter, inquiry forms
+ * (contact/partnership/directory-submission/scholarship-interest).
+ * Deliberately uses the same class names/visual language as the SDI Trust
+ * Core plugin's member-dashboard forms so the whole site feels like one
+ * system regardless of which layer rendered the markup.
+ */
+
+.sdi-notice {
+	padding: 1em 1.25em;
+	border-radius: 6px;
+	margin-bottom: 1.5em;
+	border-left: 4px solid var(--sdi-color-silver);
+	background: var(--sdi-color-offwhite);
+}
+
+.sdi-notice--success {
+	border-left-color: #3f7d4f;
+	background: #eef6f0;
+}
+
+.sdi-notice--error {
+	border-left-color: #b3432b;
+	background: #fbeeeb;
+}
+
+.sdi-notice p {
+	margin: 0;
+}
+
+.sdi-form-wrap {
+	max-width: 640px;
+}
+
+.sdi-form__field {
+	margin-bottom: 1.25em;
+}
+
+.sdi-form__field label {
+	display: block;
+	margin-bottom: 0.4em;
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.sdi-form__field input,
+.sdi-form__field select,
+.sdi-form__field textarea {
+	width: 100%;
+	padding: 0.7em 0.9em;
+	border: 1px solid var(--sdi-border);
+	border-radius: 6px;
+	font-family: var(--sdi-font-body);
+	font-size: 0.95rem;
+	background: var(--sdi-color-white);
+	color: var(--sdi-color-navy);
+}
+
+.sdi-section--navy .sdi-form__field input,
+.sdi-section--navy .sdi-form__field select,
+.sdi-section--navy .sdi-form__field textarea {
+	background: var(--sdi-color-navy-mid);
+	color: var(--sdi-color-white);
+	border-color: rgba(191, 191, 197, 0.4);
+}
+
+.sdi-form__field input:focus-visible,
+.sdi-form__field select:focus-visible,
+.sdi-form__field textarea:focus-visible {
+	outline: 2px solid var(--sdi-cta);
+	outline-offset: 1px;
+}
+
+.sdi-form__submit {
+	margin-top: 1.5em;
+}

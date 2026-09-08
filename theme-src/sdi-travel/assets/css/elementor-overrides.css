@@ -1,0 +1,42 @@
+/*
+ * Targeted resets so Elementor's own widget chrome never fights the SDI
+ * brand classes placed on top of it (e.g. a Button widget carrying
+ * `sdi-btn sdi-btn--primary` as its CSS classes). Loaded with a dependency
+ * on Elementor's frontend stylesheet so source order always favors these
+ * rules.
+ */
+
+.elementor-widget-button .elementor-button.sdi-btn {
+	background-color: var(--sdi-cta);
+	color: var(--sdi-color-navy);
+	border-radius: 4px;
+	padding: 0.85em 1.9em;
+	font-family: var(--sdi-font-body);
+	font-weight: 600;
+	box-shadow: none;
+}
+
+.elementor-widget-button .elementor-button.sdi-btn.sdi-btn--outline {
+	background-color: transparent;
+	border: 2px solid currentColor;
+	color: inherit;
+}
+
+.elementor-widget-heading .elementor-heading-title {
+	font-family: var(--sdi-font-heading);
+}
+
+.elementor-icon-box-wrapper .elementor-icon {
+	background: transparent;
+	color: var(--sdi-color-navy-mid);
+}
+
+.sdi-section--navy .elementor-icon-box-wrapper .elementor-icon,
+.sdi-section--navy .elementor-icon-box-title,
+.sdi-section--navy .elementor-icon-box-description {
+	color: var(--sdi-color-white);
+}
+
+.elementor-widget-text-editor {
+	color: inherit;
+}

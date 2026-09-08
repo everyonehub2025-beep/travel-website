@@ -17,6 +17,7 @@ require_once SDI_THEME_DIR . '/inc/setup.php';
 require_once SDI_THEME_DIR . '/inc/enqueue.php';
 require_once SDI_THEME_DIR . '/inc/customizer.php';
 require_once SDI_THEME_DIR . '/inc/newsletter.php';
+require_once SDI_THEME_DIR . '/inc/class-sdi-forms.php';
 require_once SDI_THEME_DIR . '/inc/login-branding.php';
 require_once SDI_THEME_DIR . '/inc/class-sdi-elementor-kit.php';
 require_once SDI_THEME_DIR . '/inc/template-tags.php';
