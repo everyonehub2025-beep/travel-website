@@ -20,6 +20,73 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * The Contact page's topic routing: each key maps to a department mailbox
+ * (set in Settings, or a sensible fallback) and a short note shown once a
+ * visitor picks that topic — matches the design's team-routing pattern.
+ *
+ * @return array<string,array<string,string>>
+ */
+function sdi_contact_topics() {
+	return array(
+		'membership'   => array(
+			'label'      => __( 'Membership', 'sdi-travel' ),
+			'team'       => __( 'Membership team', 'sdi-travel' ),
+			'email_mod'  => 'sdi_contact_email_membership',
+			'email_default' => '[PLACEHOLDER: membership team email]',
+			'note'       => __( 'Dues, renewals, cancellations, upgrades and account access. Include your account email and we can answer without a second exchange.', 'sdi-travel' ),
+		),
+		'scholarships' => array(
+			'label'      => __( 'Scholarships', 'sdi-travel' ),
+			'team'       => __( 'Scholarship committee', 'sdi-travel' ),
+			'email_mod'  => 'sdi_contact_email_scholarships',
+			'email_default' => '[PLACEHOLDER: scholarships team email]',
+			'note'       => __( 'Eligibility, documents, cycle dates and award notifications. Never attach transcripts here — we request documents once eligibility is confirmed.', 'sdi-travel' ),
+		),
+		'directory'    => array(
+			'label'      => __( 'Directory', 'sdi-travel' ),
+			'team'       => __( 'Programme team', 'sdi-travel' ),
+			'email_mod'  => 'sdi_contact_email',
+			'email_default' => '[PLACEHOLDER: contact email]',
+			'note'       => __( 'Corrections to a listing, a broken link, or an organization you want reviewed for inclusion.', 'sdi-travel' ),
+		),
+		'partnerships' => array(
+			'label'      => __( 'Partnerships', 'sdi-travel' ),
+			'team'       => __( 'Partnerships lead', 'sdi-travel' ),
+			'email_mod'  => 'sdi_contact_email_partnerships',
+			'email_default' => '[PLACEHOLDER: partnerships team email]',
+			'note'       => __( 'Listings, retail offers, award sponsorships and employer placements. The Partnerships page has the full review checklist.', 'sdi-travel' ),
+		),
+		'giving'       => array(
+			'label'      => __( 'Giving', 'sdi-travel' ),
+			'team'       => __( 'Giving team', 'sdi-travel' ),
+			'email_mod'  => 'sdi_contact_email_giving',
+			'email_default' => '[PLACEHOLDER: giving team email]',
+			'note'       => __( 'Donations, tribute gifts, acknowledgement letters and donor-advised fund distributions.', 'sdi-travel' ),
+		),
+		'press'        => array(
+			'label'      => __( 'Press', 'sdi-travel' ),
+			'team'       => __( 'Executive office', 'sdi-travel' ),
+			'email_mod'  => 'sdi_contact_email',
+			'email_default' => '[PLACEHOLDER: contact email]',
+			'note'       => __( 'Interview requests, financial questions and anything governance-related.', 'sdi-travel' ),
+		),
+	);
+}
+
+/**
+ * Topic select options built from sdi_contact_topics().
+ *
+ * @return array<string,string>
+ */
+function sdi_contact_topics_options() {
+	$options = array();
+	foreach ( sdi_contact_topics() as $key => $topic ) {
+		$options[ $key ] = $topic['label'];
+	}
+	return $options;
+}
+
+/**
  * Field definitions per form type. Keep in sync with sdi_handle_inquiry_submit().
  *
  * @return array<string,array<string,mixed>>
@@ -34,12 +101,7 @@ function sdi_inquiry_form_types() {
 				'topic'   => array(
 					'type'    => 'select',
 					'label'   => __( 'Topic', 'sdi-travel' ),
-					'options' => array(
-						'general'      => __( 'General Inquiry', 'sdi-travel' ),
-						'membership'   => __( 'Membership Support', 'sdi-travel' ),
-						'partnership'  => __( 'Partnership Inquiry', 'sdi-travel' ),
-						'scholarship'  => __( 'Scholarship Inquiry', 'sdi-travel' ),
-					),
+					'options' => sdi_contact_topics_options(),
 				),
 				'message' => array( 'type' => 'textarea', 'label' => __( 'Message', 'sdi-travel' ), 'required' => true ),
 			),
@@ -47,23 +109,27 @@ function sdi_inquiry_form_types() {
 		'partnership'              => array(
 			'label'  => __( 'Partnership Inquiry', 'sdi-travel' ),
 			'fields' => array(
-				'organization' => array( 'type' => 'text', 'label' => __( 'Organization Name', 'sdi-travel' ), 'required' => true ),
-				'name'         => array( 'type' => 'text', 'label' => __( 'Contact Name', 'sdi-travel' ), 'required' => true ),
-				'email'        => array( 'type' => 'email', 'label' => __( 'Email Address', 'sdi-travel' ), 'required' => true ),
-				'phone'        => array( 'type' => 'tel', 'label' => __( 'Phone', 'sdi-travel' ), 'required' => false ),
+				'organization' => array( 'type' => 'text', 'label' => __( 'Organization', 'sdi-travel' ), 'required' => true ),
 				'partner_type' => array(
 					'type'    => 'select',
 					'label'   => __( 'Partnership Type', 'sdi-travel' ),
 					'options' => array(
-						'travel_industry' => __( 'Travel Industry Company', 'sdi-travel' ),
-						'retailer'        => __( 'Retailer or Restaurant', 'sdi-travel' ),
-						'fintech'         => __( 'Financial Technology Provider', 'sdi-travel' ),
-						'government'      => __( 'Government Agency', 'sdi-travel' ),
-						'corporate'       => __( 'Corporate Sponsor', 'sdi-travel' ),
-						'foundation'      => __( 'Foundation or Grantmaker', 'sdi-travel' ),
+						'directory_listing' => __( 'Directory listing', 'sdi-travel' ),
+						'retail_offer'      => __( 'Retail & restaurant offer', 'sdi-travel' ),
+						'award_sponsorship' => __( 'Award sponsorship', 'sdi-travel' ),
+						'employer'          => __( 'Employer & institutional', 'sdi-travel' ),
+						'unsure'            => __( 'Not sure yet', 'sdi-travel' ),
 					),
 				),
-				'message'      => array( 'type' => 'textarea', 'label' => __( 'Tell us about the opportunity', 'sdi-travel' ), 'required' => true ),
+				'name'         => array( 'type' => 'text', 'label' => __( 'Contact Name', 'sdi-travel' ), 'required' => true ),
+				'email'        => array( 'type' => 'email', 'label' => __( 'Work Email', 'sdi-travel' ), 'required' => true ),
+				'website'      => array( 'type' => 'url', 'label' => __( 'Website', 'sdi-travel' ), 'required' => false ),
+				'category'     => array(
+					'type'    => 'select',
+					'label'   => __( 'Category', 'sdi-travel' ),
+					'options' => class_exists( 'SDI_Directory' ) ? SDI_Directory::get_categories() : array(),
+				),
+				'message'      => array( 'type' => 'textarea', 'label' => __( 'What would you offer members?', 'sdi-travel' ), 'required' => true ),
 			),
 		),
 		'directory_submission'     => array(
@@ -83,10 +149,50 @@ function sdi_inquiry_form_types() {
 		'scholarship_application' => array(
 			'label'  => __( 'Scholarship Interest', 'sdi-travel' ),
 			'fields' => array(
-				'name'    => array( 'type' => 'text', 'label' => __( 'Full Name', 'sdi-travel' ), 'required' => true ),
-				'email'   => array( 'type' => 'email', 'label' => __( 'Email Address', 'sdi-travel' ), 'required' => true ),
-				'phone'   => array( 'type' => 'tel', 'label' => __( 'Phone', 'sdi-travel' ), 'required' => false ),
-				'message' => array( 'type' => 'textarea', 'label' => __( 'Tell us about your interest in a travel scholarship', 'sdi-travel' ), 'required' => true ),
+				'name'          => array( 'type' => 'text', 'label' => __( 'Student Full Name', 'sdi-travel' ), 'required' => true ),
+				'email'         => array( 'type' => 'email', 'label' => __( 'Email Address', 'sdi-travel' ), 'required' => true ),
+				'institution'   => array( 'type' => 'text', 'label' => __( 'Institution', 'sdi-travel' ), 'required' => true ),
+				'award_level'   => array(
+					'type'    => 'select',
+					'label'   => __( 'Award Level Applying For', 'sdi-travel' ),
+					'options' => array(
+						'300'  => __( '300 points — up to $3,000', 'sdi-travel' ),
+						'600'  => __( '600 points — up to $6,000', 'sdi-travel' ),
+						'900'  => __( '900 points — up to $9,000', 'sdi-travel' ),
+						'1200' => __( '1,200 points — up to $12,000', 'sdi-travel' ),
+						'unsure' => __( 'Not sure yet', 'sdi-travel' ),
+					),
+				),
+				'sponsor_name'  => array( 'type' => 'text', 'label' => __( 'Sponsoring Member Name', 'sdi-travel' ), 'required' => false ),
+				'sponsor_email' => array( 'type' => 'email', 'label' => __( 'Sponsoring Member Email', 'sdi-travel' ), 'required' => false ),
+				'message'       => array( 'type' => 'textarea', 'label' => __( 'Brief Statement (optional now, required with a full application)', 'sdi-travel' ), 'required' => false ),
+			),
+		),
+		'donation_interest'        => array(
+			'label'  => __( 'Donation Interest', 'sdi-travel' ),
+			'fields' => array(
+				'name'        => array( 'type' => 'text', 'label' => __( 'Full Name', 'sdi-travel' ), 'required' => true ),
+				'email'       => array( 'type' => 'email', 'label' => __( 'Email Address', 'sdi-travel' ), 'required' => true ),
+				'amount'      => array( 'type' => 'text', 'label' => __( 'Amount (USD)', 'sdi-travel' ), 'required' => true ),
+				'frequency'   => array(
+					'type'    => 'select',
+					'label'   => __( 'Frequency', 'sdi-travel' ),
+					'options' => array(
+						'one-time' => __( 'One-time gift', 'sdi-travel' ),
+						'monthly'  => __( 'Monthly', 'sdi-travel' ),
+						'annual'   => __( 'Annually', 'sdi-travel' ),
+					),
+				),
+				'designation' => array(
+					'type'    => 'select',
+					'label'   => __( 'Designation', 'sdi-travel' ),
+					'options' => array(
+						'unrestricted' => __( 'Scholarship fund — unrestricted', 'sdi-travel' ),
+						'named_award'  => __( 'Scholarship fund — named award level', 'sdi-travel' ),
+						'most_needed'  => __( 'Where it is needed most', 'sdi-travel' ),
+					),
+				),
+				'tribute'     => array( 'type' => 'text', 'label' => __( 'Tribute (optional — "In honor of…")', 'sdi-travel' ), 'required' => false ),
 			),
 		),
 		'footer_note'              => array(
@@ -225,13 +331,30 @@ function sdi_handle_inquiry_submit() {
 		$data[ $key ] = $value;
 	}
 
+	$default_recipient = get_theme_mod( 'sdi_contact_email', get_option( 'admin_email' ) );
+
+	if ( 'contact' === $type && ! empty( $data['topic'] ) ) {
+		$topics = sdi_contact_topics();
+		if ( isset( $topics[ $data['topic'] ] ) ) {
+			$topic             = $topics[ $data['topic'] ];
+			$default_recipient = get_theme_mod( $topic['email_mod'], $topic['email_default'] );
+		}
+	} elseif ( 'donation_interest' === $type ) {
+		$default_recipient = get_theme_mod( 'sdi_contact_email_giving', '[PLACEHOLDER: giving team email]' );
+	} elseif ( 'scholarship_application' === $type ) {
+		$default_recipient = get_theme_mod( 'sdi_contact_email_scholarships', '[PLACEHOLDER: scholarships team email]' );
+	} elseif ( 'partnership' === $type ) {
+		$default_recipient = get_theme_mod( 'sdi_contact_email_partnerships', '[PLACEHOLDER: partnerships team email]' );
+	}
+
 	/**
 	 * Filters the recipient email for a given inquiry form type.
 	 *
-	 * @param string $recipient Default admin email.
-	 * @param string $type      Form type key.
+	 * @param string               $recipient Default recipient (topic-routed for 'contact').
+	 * @param string               $type      Form type key.
+	 * @param array<string,string> $data      Sanitized submitted field data.
 	 */
-	$recipient = apply_filters( 'sdi_inquiry_recipient', get_theme_mod( 'sdi_contact_email', get_option( 'admin_email' ) ), $type );
+	$recipient = apply_filters( 'sdi_inquiry_recipient', $default_recipient, $type, $data );
 	if ( ! is_email( $recipient ) ) {
 		$recipient = get_option( 'admin_email' );
 	}

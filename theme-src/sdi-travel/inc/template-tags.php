@@ -86,6 +86,47 @@ function sdi_page_header_band( $args ) {
 }
 
 /**
+ * Estimate reading time for a post at 200 words per minute — matches the
+ * design's "4 min read" byline convention.
+ *
+ * @param WP_Post|int $post Post object or ID.
+ * @return string
+ */
+function sdi_reading_time( $post ) {
+	$content    = get_post_field( 'post_content', $post );
+	$word_count = str_word_count( wp_strip_all_tags( $content ) );
+	$minutes    = max( 1, (int) round( $word_count / 200 ) );
+
+	/* translators: %d: number of minutes */
+	return sprintf( _n( '%d min read', '%d min read', $minutes, 'sdi-travel' ), $minutes );
+}
+
+/**
+ * Render one News & Resources archive card for the current post in the
+ * loop. Shared between the featured-page grid and later archive pages so
+ * both look identical.
+ */
+function sdi_news_card() {
+	?>
+	<article <?php post_class( 'sdi-card sdi-hover-lift sdi-animate' ); ?>>
+		<?php if ( has_post_thumbnail() ) : ?>
+			<a href="<?php the_permalink(); ?>" style="display:block; margin: -2em -2em 1em;">
+				<?php the_post_thumbnail( 'sdi-card' ); ?>
+			</a>
+		<?php else : ?>
+			<a href="<?php the_permalink(); ?>" style="display:block; margin: -2em -2em 1em;">
+				<?php sdi_image_placeholder( get_the_title(), '16/10' ); ?>
+			</a>
+		<?php endif; ?>
+		<p class="sdi-card__meta" style="color: var(--sdi-text-muted); font-size: 0.85rem; margin-bottom: 0.5em;"><?php echo esc_html( get_the_date() . ' · ' . sdi_reading_time( get_the_ID() ) ); ?></p>
+		<h2 style="font-size: 1.25rem;"><a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a></h2>
+		<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 20 ) ); ?></p>
+		<a class="sdi-btn sdi-btn--outline" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read More', 'sdi-travel' ); ?></a>
+	</article>
+	<?php
+}
+
+/**
  * URL of the site's native Member Login page (a real Page created by the
  * content importer, template "Member Login") — falls back to wp-login.php
  * only if that page hasn't been created yet, e.g. mid-setup.

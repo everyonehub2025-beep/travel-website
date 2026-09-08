@@ -54,6 +54,30 @@ function sdi_customize_register( $wp_customize ) {
 			'type'        => 'text',
 			'sanitize_cb' => 'sanitize_text_field',
 		),
+		'sdi_contact_email_membership' => array(
+			'default'     => '[PLACEHOLDER: membership team email]',
+			'label'       => __( 'Contact routing — Membership', 'sdi-travel' ),
+			'type'        => 'text',
+			'sanitize_cb' => 'sanitize_text_field',
+		),
+		'sdi_contact_email_scholarships' => array(
+			'default'     => '[PLACEHOLDER: scholarships team email]',
+			'label'       => __( 'Contact routing — Scholarships', 'sdi-travel' ),
+			'type'        => 'text',
+			'sanitize_cb' => 'sanitize_text_field',
+		),
+		'sdi_contact_email_partnerships' => array(
+			'default'     => '[PLACEHOLDER: partnerships team email]',
+			'label'       => __( 'Contact routing — Partnerships', 'sdi-travel' ),
+			'type'        => 'text',
+			'sanitize_cb' => 'sanitize_text_field',
+		),
+		'sdi_contact_email_giving' => array(
+			'default'     => '[PLACEHOLDER: giving team email]',
+			'label'       => __( 'Contact routing — Giving', 'sdi-travel' ),
+			'type'        => 'text',
+			'sanitize_cb' => 'sanitize_text_field',
+		),
 		'sdi_social_facebook' => array(
 			'default'     => '',
 			'label'       => __( 'Facebook URL', 'sdi-travel' ),
