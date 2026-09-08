@@ -1,0 +1,147 @@
+/*
+ * SDI Trust Core — wp-admin styles.
+ */
+
+.sdi-admin {
+	--sdi-navy: #0A1D3B;
+	--sdi-gold: #C89B3C;
+	--sdi-platinum: #BFBFC5;
+	--sdi-offwhite: #F7F8FA;
+}
+
+.sdi-admin-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	margin: 1.5em 0;
+}
+
+.sdi-admin-stat-card {
+	background: #fff;
+	border: 1px solid var(--sdi-platinum);
+	border-left: 4px solid var(--sdi-gold);
+	border-radius: 4px;
+	padding: 1.25em 1.5em;
+	min-width: 220px;
+	flex: 1 1 220px;
+}
+
+.sdi-admin-stat-card__value {
+	display: block;
+	font-size: 2rem;
+	font-weight: 600;
+	color: var(--sdi-navy);
+}
+
+.sdi-admin-stat-card__label {
+	display: block;
+	color: #646970;
+	margin: 0.25em 0 0.75em;
+}
+
+.sdi-admin-columns {
+	display: flex;
+	gap: 2em;
+	flex-wrap: wrap;
+	margin-top: 1.5em;
+}
+
+.sdi-admin-column {
+	flex: 1 1 320px;
+	background: #fff;
+	border: 1px solid var(--sdi-platinum);
+	border-radius: 4px;
+	padding: 1em 1.5em;
+}
+
+.sdi-admin-activity-list {
+	margin: 0;
+}
+
+.sdi-admin-activity-list li {
+	padding: 0.6em 0;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.sdi-admin-activity-list li:last-child {
+	border-bottom: none;
+}
+
+.sdi-admin-badge {
+	display: inline-block;
+	padding: 0.15em 0.6em;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.sdi-admin-badge--pending {
+	background: #f0f0f1;
+	color: var(--sdi-navy);
+}
+
+.sdi-admin-badge--approved {
+	background: #e5f2e8;
+	color: #3f7d4f;
+}
+
+.sdi-admin-badge--rejected {
+	background: #fbeeeb;
+	color: #b3432b;
+}
+
+.sdi-admin-badge--duplicate {
+	background: #f7ecd9;
+	color: #8a6a24;
+}
+
+.sdi-admin-amount--positive {
+	color: #3f7d4f;
+	font-weight: 600;
+}
+
+.sdi-admin-amount--negative {
+	color: #b3432b;
+	font-weight: 600;
+}
+
+.sdi-admin-panel {
+	background: #fff;
+	border: 1px solid var(--sdi-platinum);
+	border-radius: 4px;
+	padding: 1.25em 1.5em;
+	margin: 1.5em 0;
+	max-width: 640px;
+}
+
+.sdi-admin-form label {
+	display: block;
+	font-weight: 600;
+	margin: 1em 0 0.35em;
+}
+
+.sdi-admin-form input[type="text"],
+.sdi-admin-form input[type="number"],
+.sdi-admin-form input[type="email"],
+.sdi-admin-form select,
+.sdi-admin-form textarea {
+	width: 100%;
+	max-width: 420px;
+}
+
+.sdi-admin-form--settings input[type="text"],
+.sdi-admin-form--settings textarea {
+	max-width: 100%;
+}
+
+.sdi-admin-filters {
+	display: flex;
+	gap: 0.5em;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.sdi-admin-reject {
+	color: #b3432b !important;
+}
