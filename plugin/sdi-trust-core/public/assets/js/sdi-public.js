@@ -80,9 +80,64 @@
 		} );
 	}
 
+	function initDirectoryFilters() {
+		document.querySelectorAll( '[data-sdi-directory]' ).forEach( function ( directory ) {
+			var cards   = directory.querySelectorAll( '[data-sdi-listing]' );
+			var count   = directory.querySelector( '[data-sdi-directory-count]' );
+			var keyword = directory.querySelector( '[data-sdi-filter="keyword"]' );
+			var category = directory.querySelector( '[data-sdi-filter="category"]' );
+			var location = directory.querySelector( '[data-sdi-filter="location"]' );
+			var memberOnly = directory.querySelector( '[data-sdi-filter="member-only"]' );
+
+			function apply() {
+				var kw   = keyword ? keyword.value.trim().toLowerCase() : '';
+				var cat  = category ? category.value : '';
+				var loc  = location ? location.value.trim().toLowerCase() : '';
+				var mo   = memberOnly ? memberOnly.checked : false;
+				var shown = 0;
+
+				cards.forEach( function ( card ) {
+					var matches = true;
+
+					if ( kw && card.getAttribute( 'data-keyword' ).indexOf( kw ) === -1 ) {
+						matches = false;
+					}
+					if ( matches && cat && ( ' ' + card.getAttribute( 'data-category' ) + ' ' ).indexOf( ' ' + cat + ' ' ) === -1 ) {
+						matches = false;
+					}
+					if ( matches && loc && card.getAttribute( 'data-location' ).indexOf( loc ) === -1 ) {
+						matches = false;
+					}
+					if ( matches && mo && card.getAttribute( 'data-member-only' ) !== '1' ) {
+						matches = false;
+					}
+
+					card.hidden = ! matches;
+					if ( matches ) {
+						shown++;
+					}
+				} );
+
+				if ( count ) {
+					count.textContent = shown + ( 1 === shown ? ' listing' : ' listings' );
+				}
+			}
+
+			[ keyword, category, location, memberOnly ].forEach( function ( field ) {
+				if ( field ) {
+					field.addEventListener( 'input', apply );
+					field.addEventListener( 'change', apply );
+				}
+			} );
+
+			apply();
+		} );
+	}
+
 	function init() {
 		initDashboardTabs();
 		initCopyButtons();
+		initDirectoryFilters();
 	}
 
 	if ( document.readyState === 'loading' ) {

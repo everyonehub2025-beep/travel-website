@@ -99,6 +99,7 @@ if ( is_admin() ) {
 }
 
 require_once SDI_TC_PATH . 'public/class-sdi-public.php';
+require_once SDI_TC_PATH . 'public/class-sdi-directory.php';
 
 // -----------------------------------------------------------------------
 // Activation / deactivation.
@@ -127,6 +128,7 @@ add_action( 'init', 'sdi_tc_load_textdomain' );
 function sdi_tc_bootstrap() {
 	SDI_Shortcodes::instance();
 	SDI_Public::instance();
+	SDI_Directory::instance();
 
 	if ( is_admin() ) {
 		SDI_Admin::instance();

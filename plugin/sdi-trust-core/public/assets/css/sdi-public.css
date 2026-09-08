@@ -490,6 +490,103 @@
 	letter-spacing: 0.05em;
 }
 
+/* ---------- Travel Directory ([sdi_directory]) ---------- */
+
+.sdi-directory__search {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75em;
+	align-items: center;
+	padding: 1.25em;
+	background: var(--sdi-offwhite);
+	border: 1px solid var(--sdi-border);
+	margin-bottom: 1.5em;
+}
+
+.sdi-directory__field {
+	flex: 1 1 180px;
+	min-width: 0;
+	padding: 0.8em 0.9em;
+	border: 1px solid var(--sdi-platinum);
+	border-radius: 2px;
+	font-family: var(--sdi-font-body);
+	font-size: 0.92rem;
+	background: var(--sdi-white);
+	color: var(--sdi-navy);
+}
+
+.sdi-directory__check {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	font-size: 0.9rem;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.sdi-directory__check input {
+	width: 18px;
+	height: 18px;
+	accent-color: var(--sdi-gold);
+}
+
+.sdi-directory__count {
+	font-size: 0.85rem;
+	color: var(--sdi-silver);
+	margin: 0 0 1em;
+}
+
+.sdi-directory__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1.25em;
+}
+
+.sdi-listing-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+	background: var(--sdi-white);
+	border: 1px solid var(--sdi-border);
+	border-radius: 2px;
+	padding: 1.5em;
+	text-decoration: none;
+	color: var(--sdi-navy);
+	transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.sdi-listing-card:hover {
+	border-color: var(--sdi-gold);
+	box-shadow: 0 6px 18px rgba(10, 29, 59, 0.10);
+	transform: translateY(-4px);
+	color: var(--sdi-navy);
+}
+
+.sdi-listing-card__category {
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--sdi-gold-deep);
+	font-weight: 600;
+}
+
+.sdi-listing-card__title {
+	font-family: var(--sdi-font-heading);
+	font-size: 1.15rem;
+	margin: 0;
+	color: var(--sdi-navy);
+}
+
+.sdi-listing-card__location {
+	font-size: 0.8rem;
+	color: var(--sdi-silver);
+	margin: 0;
+}
+
+.sdi-listing-card[hidden] {
+	display: none;
+}
+
 .sdi-profile-summary {
 	list-style: none;
 	margin: 0 0 1.5em;

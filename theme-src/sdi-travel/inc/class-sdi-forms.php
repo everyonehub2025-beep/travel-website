@@ -73,16 +73,7 @@ function sdi_inquiry_form_types() {
 				'category'     => array(
 					'type'    => 'select',
 					'label'   => __( 'Category', 'sdi-travel' ),
-					'options' => array(
-						'travel_organizations'  => __( 'Travel Organizations', 'sdi-travel' ),
-						'agencies_providers'    => __( 'Travel Agencies & Service Providers', 'sdi-travel' ),
-						'equipment_accessories' => __( 'Travel Equipment & Accessories', 'sdi-travel' ),
-						'transport_lodging'     => __( 'Transportation & Lodging Resources', 'sdi-travel' ),
-						'technology_financial'  => __( 'Travel Technology & Financial Services', 'sdi-travel' ),
-						'federal_government'    => __( 'Federal Government Agencies', 'sdi-travel' ),
-						'state_government'      => __( 'State Government Agencies', 'sdi-travel' ),
-						'community_nonprofit'   => __( 'Community & Nonprofit Resources', 'sdi-travel' ),
-					),
+					'options' => class_exists( 'SDI_Directory' ) ? SDI_Directory::get_categories() : array(),
 				),
 				'website'      => array( 'type' => 'url', 'label' => __( 'Website', 'sdi-travel' ), 'required' => false ),
 				'email'        => array( 'type' => 'email', 'label' => __( 'Contact Email', 'sdi-travel' ), 'required' => true ),
