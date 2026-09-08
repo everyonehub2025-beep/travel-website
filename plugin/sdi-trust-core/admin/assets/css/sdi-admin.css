@@ -4,44 +4,112 @@
 
 .sdi-admin {
 	--sdi-navy: #0A1D3B;
+	--sdi-navy-mid: #102448;
 	--sdi-gold: #C89B3C;
+	--sdi-silver: #97999D;
 	--sdi-platinum: #BFBFC5;
 	--sdi-offwhite: #F7F8FA;
+	--sdi-green: #3f7d4f;
+	--sdi-red: #b3432b;
+	max-width: 1280px;
 }
+
+.sdi-admin h1 {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	font-weight: 600;
+	color: var(--sdi-navy);
+	padding-bottom: 0.5em;
+	margin-bottom: 1.25em;
+	border-bottom: 3px solid var(--sdi-gold);
+}
+
+.sdi-admin h1::before {
+	content: '';
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--sdi-gold);
+}
+
+.sdi-admin h2 {
+	color: var(--sdi-navy);
+	font-weight: 600;
+	margin-top: 2em;
+}
+
+/* ---------- Stat cards ---------- */
 
 .sdi-admin-stats {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1em;
-	margin: 1.5em 0;
+	gap: 1.25em;
+	margin: 1.5em 0 2em;
 }
 
 .sdi-admin-stat-card {
 	background: #fff;
 	border: 1px solid var(--sdi-platinum);
-	border-left: 4px solid var(--sdi-gold);
-	border-radius: 4px;
-	padding: 1.25em 1.5em;
+	border-radius: 8px;
+	padding: 1.5em 1.75em;
 	min-width: 220px;
 	flex: 1 1 220px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 1px 2px rgba(10, 29, 59, 0.04);
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.sdi-admin-stat-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, var(--sdi-gold), rgba(200, 155, 60, 0.3));
+}
+
+.sdi-admin-stat-card:hover {
+	box-shadow: 0 8px 20px rgba(10, 29, 59, 0.1);
+	transform: translateY(-2px);
 }
 
 .sdi-admin-stat-card__value {
 	display: block;
-	font-size: 2rem;
-	font-weight: 600;
+	font-size: 2.25rem;
+	font-weight: 700;
 	color: var(--sdi-navy);
+	line-height: 1.1;
 }
 
 .sdi-admin-stat-card__label {
 	display: block;
-	color: #646970;
-	margin: 0.25em 0 0.75em;
+	color: var(--sdi-silver);
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	margin: 0.4em 0 0.9em;
 }
+
+.sdi-admin-stat-card a {
+	font-size: 0.85rem;
+	font-weight: 600;
+	text-decoration: none;
+	color: var(--sdi-navy-mid);
+}
+
+.sdi-admin-stat-card a:hover {
+	color: var(--sdi-gold);
+}
+
+/* ---------- Two-column activity layout ---------- */
 
 .sdi-admin-columns {
 	display: flex;
-	gap: 2em;
+	gap: 1.5em;
 	flex-wrap: wrap;
 	margin-top: 1.5em;
 }
@@ -50,84 +118,134 @@
 	flex: 1 1 320px;
 	background: #fff;
 	border: 1px solid var(--sdi-platinum);
-	border-radius: 4px;
-	padding: 1em 1.5em;
+	border-radius: 8px;
+	padding: 0.5em 1.5em 1.25em;
+}
+
+.sdi-admin-column h2 {
+	margin-top: 1em;
+	font-size: 1.05rem;
 }
 
 .sdi-admin-activity-list {
 	margin: 0;
+	list-style: none;
+	padding: 0;
 }
 
 .sdi-admin-activity-list li {
-	padding: 0.6em 0;
+	display: flex;
+	align-items: baseline;
+	gap: 0.6em;
+	padding: 0.7em 0;
 	border-bottom: 1px solid #f0f0f1;
+	font-size: 0.92rem;
 }
 
 .sdi-admin-activity-list li:last-child {
 	border-bottom: none;
 }
 
+.sdi-admin-activity-list .description {
+	margin-left: auto;
+	color: var(--sdi-silver);
+	font-size: 0.82rem;
+	white-space: nowrap;
+}
+
+/* ---------- Badges ---------- */
+
 .sdi-admin-badge {
-	display: inline-block;
-	padding: 0.15em 0.6em;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+	padding: 0.2em 0.75em;
 	border-radius: 999px;
-	font-size: 0.75rem;
-	font-weight: 600;
+	font-size: 0.72rem;
+	font-weight: 700;
 	text-transform: uppercase;
+	letter-spacing: 0.02em;
+}
+
+.sdi-admin-badge::before {
+	content: '';
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
 }
 
 .sdi-admin-badge--pending {
-	background: #f0f0f1;
+	background: rgba(151, 153, 157, 0.15);
 	color: var(--sdi-navy);
 }
 
 .sdi-admin-badge--approved {
-	background: #e5f2e8;
-	color: #3f7d4f;
+	background: rgba(63, 125, 79, 0.12);
+	color: var(--sdi-green);
 }
 
 .sdi-admin-badge--rejected {
-	background: #fbeeeb;
-	color: #b3432b;
+	background: rgba(179, 67, 43, 0.12);
+	color: var(--sdi-red);
 }
 
 .sdi-admin-badge--duplicate {
-	background: #f7ecd9;
+	background: rgba(200, 155, 60, 0.15);
 	color: #8a6a24;
 }
 
 .sdi-admin-amount--positive {
-	color: #3f7d4f;
-	font-weight: 600;
+	color: var(--sdi-green);
+	font-weight: 700;
 }
 
 .sdi-admin-amount--negative {
-	color: #b3432b;
-	font-weight: 600;
+	color: var(--sdi-red);
+	font-weight: 700;
 }
+
+/* ---------- Panels / forms ---------- */
 
 .sdi-admin-panel {
 	background: #fff;
 	border: 1px solid var(--sdi-platinum);
-	border-radius: 4px;
-	padding: 1.25em 1.5em;
+	border-radius: 8px;
+	padding: 1.5em 1.75em;
 	margin: 1.5em 0;
-	max-width: 640px;
+	max-width: 680px;
+}
+
+.sdi-admin-panel h2 {
+	margin-top: 0;
+	font-size: 1.1rem;
 }
 
 .sdi-admin-form label {
 	display: block;
 	font-weight: 600;
-	margin: 1em 0 0.35em;
+	color: var(--sdi-navy);
+	margin: 1.1em 0 0.4em;
+	font-size: 0.9rem;
 }
 
 .sdi-admin-form input[type="text"],
 .sdi-admin-form input[type="number"],
 .sdi-admin-form input[type="email"],
+.sdi-admin-form input[type="date"],
 .sdi-admin-form select,
 .sdi-admin-form textarea {
 	width: 100%;
 	max-width: 420px;
+	border-radius: 4px;
+	border-color: var(--sdi-platinum);
+}
+
+.sdi-admin-form input:focus,
+.sdi-admin-form select:focus,
+.sdi-admin-form textarea:focus {
+	border-color: var(--sdi-gold);
+	box-shadow: 0 0 0 1px var(--sdi-gold);
 }
 
 .sdi-admin-form--settings input[type="text"],
@@ -135,13 +253,69 @@
 	max-width: 100%;
 }
 
+.sdi-admin-form .button-primary {
+	background: var(--sdi-navy);
+	border-color: var(--sdi-navy);
+	margin-top: 1em;
+}
+
+.sdi-admin-form .button-primary:hover {
+	background: var(--sdi-navy-mid);
+	border-color: var(--sdi-navy-mid);
+}
+
 .sdi-admin-filters {
 	display: flex;
 	gap: 0.5em;
 	align-items: center;
 	flex-wrap: wrap;
+	background: #fff;
+	border: 1px solid var(--sdi-platinum);
+	border-radius: 8px;
+	padding: 0.9em 1.1em;
+	margin-bottom: 1em;
 }
 
 .sdi-admin-reject {
-	color: #b3432b !important;
+	color: var(--sdi-red) !important;
+	border-color: var(--sdi-red) !important;
+}
+
+/* ---------- Tables ---------- */
+
+.sdi-admin .wp-list-table,
+.sdi-admin-table {
+	border: 1px solid var(--sdi-platinum);
+	border-radius: 8px;
+	overflow: hidden;
+	border-spacing: 0;
+}
+
+.sdi-admin .wp-list-table thead th,
+.sdi-admin .wp-list-table thead td,
+.sdi-admin-table thead th {
+	background: var(--sdi-offwhite);
+	color: var(--sdi-navy);
+	font-weight: 600;
+	border-bottom: 1px solid var(--sdi-platinum);
+}
+
+.sdi-admin .wp-list-table tbody tr:hover {
+	background: rgba(200, 155, 60, 0.05);
+}
+
+.sdi-admin-table td,
+.sdi-admin-table th {
+	padding: 0.75em 1em;
+}
+
+/* ---------- Views/search tabs on list tables ---------- */
+
+.sdi-admin .subsubsub {
+	margin: 0.5em 0 1em;
+}
+
+.sdi-admin .subsubsub a.current {
+	color: var(--sdi-navy);
+	font-weight: 700;
 }

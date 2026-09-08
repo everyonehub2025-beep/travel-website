@@ -8,8 +8,38 @@
 /* ---------- Hero ---------- */
 
 .sdi-hero {
-	padding-block: clamp(64px, 10vw, 140px);
+	padding-block: clamp(72px, 11vw, 160px);
 	text-align: center;
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+}
+
+.sdi-hero::before {
+	content: '';
+	position: absolute;
+	inset: -20%;
+	z-index: -1;
+	background:
+		radial-gradient(38rem 28rem at 12% 8%, rgba(200, 155, 60, 0.16), transparent 60%),
+		radial-gradient(32rem 26rem at 88% 92%, rgba(191, 191, 197, 0.14), transparent 60%);
+	animation: sdiHeroDrift 22s ease-in-out infinite alternate;
+}
+
+.sdi-hero::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-image: url('../svg/dot-grid.svg');
+	background-position: right 4% top 12%;
+	background-repeat: no-repeat;
+	opacity: 0.5;
+}
+
+@keyframes sdiHeroDrift {
+	from { transform: translate3d(0, 0, 0) scale(1); }
+	to { transform: translate3d(-2%, 2%, 0) scale(1.04); }
 }
 
 .sdi-hero__content {
@@ -26,6 +56,42 @@
 	flex-wrap: wrap;
 }
 
+/* Above-the-fold entrance: plays immediately on load (not scroll-triggered
+   like .sdi-animate, which would never fire before the visitor scrolls). */
+.js .sdi-hero__content > * {
+	opacity: 0;
+	animation: sdiFadeInUp 0.7s ease forwards;
+}
+
+.js .sdi-hero__content > *:nth-child(1) { animation-delay: 0.05s; }
+.js .sdi-hero__content > *:nth-child(2) { animation-delay: 0.16s; }
+.js .sdi-hero__content > *:nth-child(3) { animation-delay: 0.27s; }
+.js .sdi-hero__content > *:nth-child(4) { animation-delay: 0.38s; }
+.js .sdi-hero__content > *:nth-child(5) { animation-delay: 0.49s; }
+
+.sdi-hero__photo {
+	margin-top: 0.5rem;
+	max-width: 720px;
+	margin-inline: auto;
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes sdiFadeInUp {
+	from { opacity: 0; transform: translateY(22px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sdi-hero::before {
+		animation: none;
+	}
+
+	.js .sdi-hero__content > * {
+		opacity: 1;
+		animation: none;
+	}
+}
+
 /* ---------- Narrow content container ---------- */
 
 .sdi-container--narrow {
@@ -36,6 +102,19 @@
 
 .sdi-pricing-card {
 	text-align: center;
+	position: relative;
+	padding-top: 2.5em;
+}
+
+.sdi-pricing-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 2em;
+	right: 2em;
+	height: 4px;
+	border-radius: 0 0 4px 4px;
+	background: linear-gradient(90deg, var(--sdi-color-gold), rgba(200, 155, 60, 0.35));
 }
 
 .sdi-price {
@@ -107,14 +186,31 @@
 
 .sdi-stat {
 	text-align: center;
-	padding: 1em;
+	padding: 1.5em 1em;
+	border-radius: var(--sdi-radius);
+	transition: transform 0.25s ease;
+}
+
+.sdi-stat:hover {
+	transform: translateY(-3px);
 }
 
 .sdi-stat__value {
 	display: block;
 	font-family: var(--sdi-font-heading);
-	font-size: 2.5rem;
-	color: var(--sdi-color-navy);
+	font-size: 2.75rem;
+	font-weight: 700;
+	background: linear-gradient(135deg, var(--sdi-color-gold), #a97d2c);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.sdi-section--light .sdi-stat__value {
+	background: linear-gradient(135deg, var(--sdi-color-navy), var(--sdi-color-navy-mid));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .sdi-section--navy .sdi-stat__value {
@@ -192,18 +288,92 @@
 	align-items: flex-start;
 }
 
+.sdi-process-step {
+	position: relative;
+	padding-bottom: 1.5em;
+}
+
+.sdi-process-step:not(:last-child)::before {
+	content: '';
+	position: absolute;
+	left: 19px;
+	top: 40px;
+	bottom: -0.5em;
+	width: 2px;
+	background: linear-gradient(var(--sdi-color-gold), transparent);
+	opacity: 0.5;
+}
+
 .sdi-process-step__number {
 	flex: 0 0 auto;
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	background: var(--sdi-color-navy);
+	background: linear-gradient(135deg, var(--sdi-color-navy), var(--sdi-color-navy-mid));
 	color: var(--sdi-color-white);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-family: var(--sdi-font-heading);
 	font-weight: 600;
+	box-shadow: 0 0 0 4px rgba(200, 155, 60, 0.15);
+	position: relative;
+	z-index: 1;
+}
+
+/* ---------- Elementor Testimonial widget — brand skin ---------- */
+
+.elementor-widget-testimonial .elementor-testimonial-content {
+	font-family: var(--sdi-font-heading);
+	font-style: italic;
+	font-size: 1.05rem;
+	color: var(--sdi-text-body);
+}
+
+.sdi-section--navy .elementor-widget-testimonial .elementor-testimonial-content {
+	color: var(--sdi-color-white);
+}
+
+.elementor-widget-testimonial .elementor-testimonial-name {
+	font-weight: 700;
+	color: var(--sdi-color-navy);
+}
+
+.sdi-section--navy .elementor-widget-testimonial .elementor-testimonial-name {
+	color: var(--sdi-color-white);
+}
+
+.elementor-widget-testimonial .elementor-testimonial-job {
+	color: var(--sdi-color-gold);
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+/* ---------- Elementor Accordion widget (FAQ sections) — brand skin ---------- */
+
+.elementor-widget-accordion .elementor-accordion-item {
+	border: 1px solid var(--sdi-border);
+	border-radius: var(--sdi-radius);
+	margin-bottom: 0.75em;
+	overflow: hidden;
+}
+
+.elementor-widget-accordion .elementor-tab-title {
+	font-family: var(--sdi-font-heading);
+	font-weight: 600;
+	font-size: 1.05rem;
+	color: var(--sdi-color-navy);
+	padding: 1em 1.25em;
+}
+
+.elementor-widget-accordion .elementor-tab-title .elementor-accordion-icon {
+	color: var(--sdi-color-gold);
+}
+
+.elementor-widget-accordion .elementor-tab-content {
+	padding: 0 1.25em 1.25em;
+	color: var(--sdi-text-body);
 }
 
 /* ---------- Team / leadership cards (About Us) ---------- */

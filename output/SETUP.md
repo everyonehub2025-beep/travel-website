@@ -6,6 +6,18 @@
 
 ---
 
+## 0. Troubleshooting a "broken" first import
+
+If pages look narrow/off-center, the admin screens look unstyled, or the menus/footer are missing right after import, check these **in order** — they account for nearly every "looks bad" symptom on a fresh import:
+
+1. **Elementor's "Container" experiment must be Active.** Go to Elementor → Settings → Experiments and confirm **Container** (or **Flexbox Container**, depending on your Elementor version) is set to **Active**, not "Inactive" or "Default" pointing at the legacy Section/Column engine. Every page in `sdi-demo-content.xml` is built entirely from the modern `elType: "container"` structure — on an Elementor install where this experiment is off, that data won't render or edit correctly. This is the single most likely cause of a badly broken layout. (Elementor versions from roughly 2023 onward ship this Active by default for new sites, but an existing install may still have it off.)
+2. **The 3 manual settings in §4 below** (menu locations, static front page, permalinks) — none of these happen automatically on WXR import; skipping them looks exactly like "no menu / no footer / wrong homepage."
+3. **Clear any page cache / object cache** (and Elementor's own CSS cache: Elementor → Tools → Regenerate CSS) after import — a stale cache can serve pre-import broken output even after the real issue is fixed.
+4. **Confirm the theme's CSS files are actually loading** — view page source and confirm `wp-content/themes/sdi-travel/assets/css/*.css` requests return 200, not 404. A theme installed by uploading the zip's *inner* folder incorrectly nested (e.g. `sdi-travel-theme/sdi-travel/` instead of `sdi-travel/` directly under `/wp-content/themes/`) will 404 every asset and look completely unstyled — if that happened, move the `sdi-travel` folder up one level so `style.css` sits directly inside `/wp-content/themes/sdi-travel/`.
+5. **Every generated page container now sets an explicit `content_width: full`** so this build's own CSS (`.sdi-container`, `.sdi-section`) is the sole source of page width — this was tightened after an earlier round specifically to rule out Elementor's Kit-level default container width (usually "boxed," ~1140px) nesting inside this theme's own max-width wrapper and producing a double-boxed, too-narrow page. If a page still looks unexpectedly narrow after all of the above, that's a real bug — screenshot it and it needs a code fix, not a settings fix.
+
+---
+
 ## 1. Install order
 
 Follow this order exactly — each step depends on the one before it.

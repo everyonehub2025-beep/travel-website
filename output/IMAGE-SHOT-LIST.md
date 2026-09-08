@@ -8,7 +8,7 @@ No demo/stock photography ships in this build — the base theme package's bundl
 
 | # | Page | What Belongs Here | Aspect Ratio | Suggested Dimensions | Stock Search Terms |
 |---|---|---|---|---|---|
-| 1 | Home | Hero background — members traveling together, in front of curated travel resources | 21/9 | 2400x1000px | family airport departure, travelers with luggage smiling, group boarding plane, diverse travelers walking terminal, travel planning together |
+| 1 | Home | Members traveling together, in front of curated travel resources — optional photo to layer over the animated gradient background | 21/9 | 2400x1000px | travel, nonprofit community, membership organization |
 | 2 | Home | Member photo — (member name) | 1/1 | 200x200px | portrait smiling adult casual, headshot natural light, professional casual portrait, smiling person outdoor portrait |
 | 3 | Home | Member photo — (member name) | 1/1 | 200x200px | portrait smiling adult casual, headshot natural light, professional casual portrait, smiling person outdoor portrait |
 | 4 | Home | Member photo — (member name) | 1/1 | 200x200px | portrait smiling adult casual, headshot natural light, professional casual portrait, smiling person outdoor portrait |
