@@ -14,6 +14,8 @@ define( 'SDI_THEME_DIR', get_template_directory() );
 define( 'SDI_THEME_URI', get_template_directory_uri() );
 
 require_once SDI_THEME_DIR . '/inc/setup.php';
+require_once SDI_THEME_DIR . '/inc/plugin-activation.php';
+require_once SDI_THEME_DIR . '/inc/demo-import.php';
 require_once SDI_THEME_DIR . '/inc/enqueue.php';
 require_once SDI_THEME_DIR . '/inc/customizer.php';
 require_once SDI_THEME_DIR . '/inc/newsletter.php';

@@ -318,14 +318,19 @@ img {
 /* ---------- Grids ---------- */
 
 .sdi-grid {
-	display: grid;
+	display: grid !important;
 	gap: 1.75rem;
 }
 
-.sdi-grid--2 { grid-template-columns: repeat(2, 1fr); }
-.sdi-grid--3 { grid-template-columns: repeat(3, 1fr); }
-.sdi-grid--4 { grid-template-columns: repeat(4, 1fr); }
-.sdi-grid--7 { grid-template-columns: repeat(4, 1fr); }
+.sdi-grid--2 { grid-template-columns: repeat(2, 1fr) !important; }
+.sdi-grid--3 { grid-template-columns: repeat(3, 1fr) !important; }
+.sdi-grid--4 { grid-template-columns: repeat(4, 1fr) !important; }
+.sdi-grid--7 { grid-template-columns: repeat(4, 1fr) !important; }
+
+/* Elementor's own frontend CSS sets `.e-con { display: flex }` on every
+   container at equal specificity to the rule above; without !important the
+   winner depends on stylesheet load order, so the grid layout silently
+   collapses to single-column stacking on some sites. */
 
 /* ---------- Image placeholder blocks (no demo photography shipped) ---------- */
 
@@ -334,12 +339,17 @@ img {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	max-height: 640px;
 	background: linear-gradient(135deg, var(--sdi-color-navy) 0%, var(--sdi-color-navy-mid) 100%);
 	border-radius: var(--sdi-radius);
 	color: var(--sdi-color-platinum);
 	text-align: center;
 	overflow: hidden;
 	min-height: 220px;
+	box-sizing: border-box;
 }
 
 .sdi-placeholder::before {

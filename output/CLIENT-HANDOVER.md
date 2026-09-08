@@ -81,6 +81,7 @@ This build ships with sample content so every part of the site can be tested bef
 4. **Replace every `[PLACEHOLDER: ...]` marker and every illustrative statistic/name** — see `CONTENT-GAPS.md` for the complete list, organized by page.
 5. **Add real photography** for the homepage hero — see `IMAGE-SHOT-LIST.md`.
 6. **Get the Legal page reviewed by counsel** before removing its "Draft" label.
+7. **Deactivate the One Click Demo Import plugin** (Plugins). It's only needed for the one-time "Appearance → Import Demo Data" step right after activation — safe to switch off once the real content is in place. (Leave it installed if you might ever need to re-import onto a fresh staging site.)
 
 ## Getting help
 
