@@ -142,14 +142,23 @@ img {
 /* ---------- Layout ---------- */
 
 .sdi-container {
-	max-width: var(--sdi-container-max);
-	margin-inline: auto;
-	padding-inline: 24px;
+	max-width: var(--sdi-container-max) !important;
+	margin-inline: auto !important;
+	padding-inline: 24px !important;
 }
 
 .sdi-section {
-	padding-block: clamp(48px, 6vw, 96px);
+	padding-block: clamp(48px, 6vw, 96px) !important;
 }
+
+/* Every Elementor container in this build is generated with an explicit
+   "padding: 0" setting and content_width:full (see elementor_builder.py's
+   container() helper) so Elementor's own per-element CSS doesn't fight our
+   layout classes on width. But Elementor renders that as its own CSS rule
+   at higher specificity than a single theme class, which silently wins
+   over .sdi-container/.sdi-section above without !important — collapsing
+   the centered max-width layout to a flush-left, uncentered one and
+   zeroing the section's vertical rhythm. */
 
 /* Alternating light/navy section backgrounds, per brand guidelines. */
 
@@ -319,7 +328,7 @@ img {
 
 .sdi-grid {
 	display: grid !important;
-	gap: 1.75rem;
+	gap: 1.75rem !important;
 }
 
 .sdi-grid--2 { grid-template-columns: repeat(2, 1fr) !important; }
@@ -381,26 +390,26 @@ img {
 /* ---------- Responsive breakpoints: 1200 / 1024 / 768 / 480 ---------- */
 
 @media (max-width: 1200px) {
-	.sdi-container { padding-inline: 20px; }
+	.sdi-container { padding-inline: 20px !important; }
 }
 
 @media (max-width: 1024px) {
 	.sdi-grid--4,
-	.sdi-grid--7 { grid-template-columns: repeat(2, 1fr); }
-	.sdi-grid--3 { grid-template-columns: repeat(2, 1fr); }
+	.sdi-grid--7 { grid-template-columns: repeat(2, 1fr) !important; }
+	.sdi-grid--3 { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
 @media (max-width: 768px) {
 	.sdi-grid--2,
 	.sdi-grid--3,
 	.sdi-grid--4,
-	.sdi-grid--7 { grid-template-columns: 1fr; }
+	.sdi-grid--7 { grid-template-columns: 1fr !important; }
 
-	.sdi-section { padding-block: 48px; }
+	.sdi-section { padding-block: 48px !important; }
 }
 
 @media (max-width: 480px) {
-	.sdi-container { padding-inline: 16px; }
+	.sdi-container { padding-inline: 16px !important; }
 
 	.sdi-btn { width: 100%; justify-content: center; }
 }

@@ -8,7 +8,7 @@
 /* ---------- Hero ---------- */
 
 .sdi-hero {
-	padding-block: clamp(72px, 11vw, 160px);
+	padding-block: clamp(72px, 11vw, 160px) !important;
 	text-align: center;
 	position: relative;
 	overflow: hidden;
@@ -95,10 +95,18 @@
 /* ---------- Homepage building blocks ---------- */
 
 .sdi-section--tinted { background: var(--sdi-color-fill-muted); border-top: 1px solid var(--sdi-border); border-bottom: 1px solid var(--sdi-border); }
-.sdi-section--deep { background: var(--sdi-color-midnight); color: var(--sdi-color-white); padding-block: clamp(48px, 6vw, 96px); }
+.sdi-section--deep { background: var(--sdi-color-midnight); color: var(--sdi-color-white); padding-block: clamp(48px, 6vw, 96px) !important; }
 .sdi-section--deep h2, .sdi-section--deep h3 { color: var(--sdi-color-white); }
 
-.sdi-flex-between { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-end; justify-content: space-between; }
+/* !important throughout this file on properties Elementor's own .e-con
+   CSS also sets (display, padding, gap, align-items, justify-content,
+   grid-template-columns) — every one of these classes is applied as an
+   extra CSS class directly on an Elementor container element, and
+   Elementor's own generated CSS for that element (from the content_width
+   and padding settings every container() call sets) otherwise wins the
+   cascade at equal or higher specificity. See base.css's .sdi-container
+   comment for the full explanation. */
+.sdi-flex-between { display: flex !important; flex-wrap: wrap; gap: 2rem !important; align-items: flex-end !important; justify-content: space-between !important; }
 
 /* Mini stat panel: navy box with label/value rows (route-line behind) */
 .sdi-mini-stat-panel {
@@ -724,7 +732,7 @@
 
 /* ---------- Legal page (TOC + stacked anchored policy docs) ---------- */
 
-.sdi-legal-grid { align-items: start; }
+.sdi-legal-grid { align-items: start !important; }
 
 .sdi-legal-toc {
 	position: sticky;
@@ -830,15 +838,15 @@
 /* ---------- Login / Sign Up panels ---------- */
 
 .sdi-auth-grid {
-	display: grid;
-	grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-	gap: 36px;
-	align-items: start;
+	display: grid !important;
+	grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) !important;
+	gap: 36px !important;
+	align-items: start !important;
 }
 
 @media (max-width: 900px) {
 	.sdi-auth-grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: 1fr !important;
 	}
 }
 
