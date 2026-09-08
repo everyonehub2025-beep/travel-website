@@ -1,270 +1,66 @@
 # Content Gaps — SDI Travel Trust
 
-Per the project brief's hard constraint ("Do not invent client copy"), every fact, figure, name, or claim that wasn't supplied in the client's copy document or layout guide is marked `[PLACEHOLDER: description]` directly in the page content rather than invented. This file catalogs every instance so nothing gets missed before launch.
+This build's copy comes almost entirely from the client-supplied design system handoff, which already writes in a finished, publication-ready voice — so very little of it is a blank `[PLACEHOLDER: ...]` marker anymore. Instead, most of what's listed here is **illustrative data the design itself flags as unconfirmed** (it says so directly, in small print, on the pages that use it — e.g. "Figures shown are placeholders pending verified totals"). This file collects every one of those spots in one place, plus the small number of true `[PLACEHOLDER: ...]` markers that remain, so nothing gets missed before launch.
 
-**Total placeholders across the site: 126**
+**Nothing below is broken or wrong to launch with as-is for a staging/review site** — it's real, specific, plausible content, exactly the kind a design system uses to show what a page looks like with real content in it. It becomes a problem only if it goes live without being checked against the truth.
 
-Search any page's content in the WordPress editor (or the raw text) for `[PLACEHOLDER:` to jump straight to each spot — the bracketed text doubles as an on-page TODO marker and is meant to be replaced, not published as-is.
+---
 
-## Highest priority (needed before any launch)
+## Highest priority — real business facts, not design placeholders
 
-| Page | What's Needed |
-|---|---|
-| About Us | nonprofit registration / EIN details |
-| Contact | contact email address |
-| Contact | contact phone number |
-| Contact | mailing address |
-| Privacy Policy | effective date |
-| Privacy Policy | legal text for the “Information We Collect” section of the Privacy Policy |
-| Privacy Policy | legal text for the “How We Use Information” section of the Privacy Policy |
-| Privacy Policy | legal text for the “Cookies & Tracking Technologies” section of the Privacy Policy |
-| Privacy Policy | legal text for the “Third-Party Sharing” section of the Privacy Policy |
-| Privacy Policy | legal text for the “Data Security” section of the Privacy Policy |
-| Privacy Policy | legal text for the “Your Rights & Choices” section of the Privacy Policy |
-| Privacy Policy | legal text for the “Children's Privacy” section of the Privacy Policy |
-| Privacy Policy | legal text for the “Changes to This Policy” section of the Privacy Policy |
-| Terms of Use | effective date |
-| Terms of Use | legal text for the “Acceptance of Terms” section of the Terms of Use |
-| Terms of Use | legal text for the “Use of the Site” section of the Terms of Use |
-| Terms of Use | legal text for the “Membership Accounts” section of the Terms of Use |
-| Terms of Use | legal text for the “Intellectual Property” section of the Terms of Use |
-| Terms of Use | legal text for the “Prohibited Conduct” section of the Terms of Use |
-| Terms of Use | legal text for the “Disclaimers” section of the Terms of Use |
-| Terms of Use | legal text for the “Limitation of Liability” section of the Terms of Use |
-| Terms of Use | legal text for the “Governing Law” section of the Terms of Use |
-| Terms of Use | legal text for the “Changes to These Terms” section of the Terms of Use |
-| Membership Terms | effective date |
-| Membership Terms | legal text for the “Membership Eligibility” section of the Membership Terms |
-| Membership Terms | legal text for the “Membership Fees & Renewal” section of the Membership Terms |
-| Membership Terms | legal text for the “Individual vs. Family Membership” section of the Membership Terms |
-| Membership Terms | legal text for the “Member Benefits” section of the Membership Terms |
-| Membership Terms | legal text for the “Cancellation & Refunds” section of the Membership Terms |
-| Membership Terms | legal text for the “Termination of Membership” section of the Membership Terms |
-| Membership Terms | legal text for the “Changes to Membership Terms” section of the Membership Terms |
-| Referral Program Rules | effective date |
-| Referral Program Rules | legal text for the “Program Overview” section of the Referral Program Rules |
-| Referral Program Rules | legal text for the “Eligibility to Refer” section of the Referral Program Rules |
-| Referral Program Rules | legal text for the “Points & Awarding of Points” section of the Referral Program Rules |
-| Referral Program Rules | legal text for the “Duplicate & Fraudulent Referrals” section of the Referral Program Rules |
-| Referral Program Rules | legal text for the “Scholarship Eligibility Disclaimer” section of the Referral Program Rules |
-| Referral Program Rules | legal text for the “Program Changes & Termination” section of the Referral Program Rules |
-| Scholarship Terms | effective date |
-| Scholarship Terms | legal text for the “Program Overview” section of the Scholarship Terms |
-| Scholarship Terms | legal text for the “Eligibility Requirements” section of the Scholarship Terms |
-| Scholarship Terms | legal text for the “Application Process” section of the Scholarship Terms |
-| Scholarship Terms | legal text for the “Award Levels — No Guarantee of Award” section of the Scholarship Terms |
-| Scholarship Terms | legal text for the “Selection & Verification” section of the Scholarship Terms |
-| Scholarship Terms | legal text for the “Use of Funds” section of the Scholarship Terms |
-| Scholarship Terms | legal text for the “Program Changes” section of the Scholarship Terms |
-| Donation and Refund Policy | effective date |
-| Donation and Refund Policy | legal text for the “Donation Overview” section of the Donation and Refund Policy |
-| Donation and Refund Policy | legal text for the “Tax-Deductibility” section of the Donation and Refund Policy |
-| Donation and Refund Policy | legal text for the “Refund Policy” section of the Donation and Refund Policy |
-| Donation and Refund Policy | legal text for the “Recurring Donations” section of the Donation and Refund Policy |
-| Donation and Refund Policy | legal text for the “Retailer & Restaurant Partner Discount Terms” section of the Donation and Refund Policy |
-| Accessibility Statement | effective date |
-| Accessibility Statement | legal text for the “Our Commitment” section of the Accessibility Statement |
-| Accessibility Statement | legal text for the “Standards We Follow” section of the Accessibility Statement |
-| Accessibility Statement | legal text for the “Known Limitations” section of the Accessibility Statement |
-| Accessibility Statement | legal text for the “Feedback & Assistance” section of the Accessibility Statement |
-| Partner Disclosures & Financial Transparency | effective date |
-| Partner Disclosures & Financial Transparency | legal text for the “Partner Relationships & Compensation” section of the Partner Disclosures & Financial Transparency |
-| Partner Disclosures & Financial Transparency | legal text for the “Fundraising Methods Disclosure” section of the Partner Disclosures & Financial Transparency |
-| Partner Disclosures & Financial Transparency | legal text for the “Financial Reporting & Annual Report” section of the Partner Disclosures & Financial Transparency |
-| Partner Disclosures & Financial Transparency | legal text for the “Board Oversight” section of the Partner Disclosures & Financial Transparency |
+These appear on nearly every page (footer, contact panels) and should be the first things confirmed:
 
-## Full list, by page
+| Item | Current value | Where it's set |
+|---|---|---|
+| Mailing address | `[PLACEHOLDER: mailing address]` (design's own example: "4110 Compass Point Drive, Suite 220, Charlotte, NC 28202" — not used as the live default, see note below) | Customizer → SDI Site Info → Mailing address |
+| Main contact email | `[PLACEHOLDER: contact email]` | Customizer → SDI Site Info → Contact email |
+| Contact phone | `[PLACEHOLDER: contact phone]` | Customizer → SDI Site Info → Contact phone |
+| EIN / 501(c)(3) status | `[PLACEHOLDER: EIN]` (design's own example: "83-1902744") | Customizer → SDI Site Info → 501(c)(3) EIN |
+| Department routing emails (Membership, Scholarships, Partnerships, Giving) | Each `[PLACEHOLDER: ... team email]` | Customizer → SDI Site Info → Contact routing — * |
 
-### Home
+**Note:** the design handoff's own footer and contact panels display a specific-looking address, EIN, and set of `@sditraveltrust.org` emails as its illustrative content. This build deliberately does **not** hard-code those as real defaults anywhere — per the standing rule against inventing client-facing facts, every one of the fields above defaults to a visible `[PLACEHOLDER: ...]` string until you enter the real value in the Customizer. If the example values above are in fact correct, simply enter them in Site Info.
 
-- verified count of active members
-- verified total scholarship funds awarded to date
-- verified count of directory listings
-- verified count of participating partners
-- member testimonial quote
-- member name
-- member title/location
-- member testimonial quote
-- member name
-- member title/location
-- member testimonial quote
-- member name
-- member title/location
+## Statistics shown across the site
 
-### About Us
+Every one of these appears with the design's own "placeholder pending [verified data / audited figures / confirmation]" disclaimer already printed next to it on the page — replace the number, and it's safe to remove that disclaimer sentence too.
 
-- formal mission and vision statement language
-- organization's founding date, legal structure, and history
-- verified member count
-- verified scholarship total
-- verified directory listing count
-- leader name
-- leader title
-- leader name
-- leader title
-- leader name
-- leader title
-- Form 990 / annual report link, board oversight statement
-- nonprofit registration / EIN details
-- additional org-level FAQ question
-- answer
+| Stat | Shown as | Appears on |
+|---|---|---|
+| Active members | 2,480+ | Home, About Us, Partnerships |
+| Scholarships awarded to date | 86 | Home, About Us, Scholarships |
+| Directory listings | 340+ | Home, About Us |
+| Partner organizations | 52 | Home, About Us, Partnerships |
+| Annual renewal rate / avg. years held / % who refer | 84% / 2.6 / 61% | Home |
+| Allocation split (scholarship / programs / operations) | 62¢ / 24¢ / 14¢ | Home, About Us, Fundraising |
+| Award levels / cycles per year | 4 / 2 | Scholarships |
+| Scoring weights (need / academic / statement / community) | 35% / 25% / 25% / 15% | Scholarships |
+| 2026 spring cycle results | 11 awards, $74k disbursed | News & Resources, Home |
+| Board size / reviews per year / paid board seats | 5 / 4 / 0 | About Us |
 
-### Membership
+## Names and bios (need real people or explicit removal)
 
-- membership checkout / signup URL (MemberPress)
-- membership checkout / signup URL (MemberPress)
+- **Leadership** (About Us): Marlene Ashford (Executive Director), Dominic Reyes (Board Chair), Priya Chandrasekar (Programme Director) — names, titles and bios are the design's placeholder people, with headshot circles left as unlabeled placeholders (not photos).
+- **Member testimonials** (Home): "Danielle P.", "Ray O.", "Amara K." with quotes — the page already prints "Sample member quotes — to be replaced with consented testimonials before launch."
+- **Recipient stories** (Scholarships): "Jasmine Cole", "Marcus Ihejirika", "Elena Vasquez" with award amounts and quotes — the page already prints its own placeholder disclaimer.
+- **Sample events** (Programs): an Austin, TX meetup and a Charlotte, NC volunteer day with specific 2026 dates — real if already scheduled, otherwise replace before launch.
 
-### Travel Directory
+## Sample partner/offer data (never presented as confirmed)
 
-- Directorist search bar / category & location filters embed once Directorist is installed and configured
-- link to the Directorist category archive for Travel Organizations
-- link to the Directorist category archive for Travel Agencies & Service Providers
-- link to the Directorist category archive for Travel Equipment & Accessories
-- link to the Directorist category archive for Transportation & Lodging Resources
-- link to the Directorist category archive for Travel Technology & Financial Services
-- link to the Directorist category archive for Federal Government Agencies
-- link to the Directorist category archive for State & Community Resources
+- **23 demo Travel Directory listings** import via the WXR (organization names only, no real websites/contacts/descriptions) — for layout testing. Delete or replace before launch; see `CLIENT-HANDOVER.md`.
+- **Sample partner offers** referenced in the design (PackRight Luggage Co., LodgeLine Extended Stay, Meridian Journeys) appear only as static illustrative copy on the Fundraising page — the actual Member Dashboard "Partner Offers" tab correctly shows an honest empty state until real offers exist (see `SETUP.md` §9), so there's no risk of these sample names leaking into a live member's dashboard.
+- **Partner logo strips** (Home, Partnerships) are unlabeled placeholder tiles, not fabricated logos.
 
-### Programs — Travel Purchase Fundraising
+## True `[PLACEHOLDER: ...]` markers remaining in code/content
 
-- eligibility requirements for the eligible-purchase program once the fintech partner is confirmed
-- step 1 of the eligible-purchase enrollment process
-- step 2 — how purchases are tracked once the fintech partner is live
+- 4 demo News & Resources posts each carry one bracketed placeholder line for a detail not in the design handoff (e.g. "the specific organizations added this cycle," "confirmed autumn volunteer day dates") — cosmetic, demo-only content; delete these posts before launch per `CLIENT-HANDOVER.md`.
+- The Sign Up page's "Please note" panel explicitly states payment collection is not yet connected — this is accurate, not a gap to fill in copy, but the underlying integration gap is real; see `SETUP.md` §9.
 
-### Programs — Retailer & Restaurant Partnerships
+## The Legal page — an important exception to all of the above
 
-- list of current participating retailers and restaurants
+Unlike everything else on this list, the single `/legal/` page's eight policy sections (Privacy Policy, Terms of Use, Membership Terms, Referral Program Rules, Scholarship Terms, Donation & Refund Policy, Partner Disclosures, Financial Transparency) are **not placeholder skeletons** — they're a complete, substantive first draft of real policy language, carried over verbatim from the design handoff. Every section is labeled "Draft" directly on the page, and the page's own sidebar and footer state plainly that these are pending legal, tax, and charitable-solicitation review. **This page must go through that review before the "Draft" label is removed or the site is represented as launched with final terms.**
 
-### Programs — Academic Scholarship Program
+## What's genuinely new since the last build (not a gap, but worth knowing)
 
-- formal scholarship eligibility criteria — academic standing, enrollment status, application deadlines
-- remaining formal application/review steps once defined
-
-### Programs — Community Engagement Initiatives
-
-- specific community engagement activities — events, volunteer opportunities, outreach programs
-- community engagement participation steps
-
-### Scholarships
-
-- formal academic/enrollment eligibility criteria for a scholarship award
-- remaining review, documentation, and award-notification steps
-- links to downloadable scholarship program documents (guidelines, official rules PDF)
-- formal scholarship selection/review criteria
-- recipient story quote
-- recipient name
-- school / program
-- recipient story quote
-- recipient name
-- school / program
-- points expiration policy, if any
-- additional scholarship FAQ question
-- answer
-
-### Fundraising
-
-- donation processing URL/page
-- financial transparency detail — most recent annual report / Form 990 link
-- donation processing URL/page
-
-### Partnerships
-
-- specific partner benefits — directory placement, co-marketing, member reach, sponsorship recognition
-- partner vetting/participation requirements and sponsorship tier details
-
-### Contact
-
-- contact email address
-- contact phone number
-- mailing address
-- social media links
-
-### Privacy Policy
-
-- effective date
-- legal text for the “Information We Collect” section of the Privacy Policy
-- legal text for the “How We Use Information” section of the Privacy Policy
-- legal text for the “Cookies & Tracking Technologies” section of the Privacy Policy
-- legal text for the “Third-Party Sharing” section of the Privacy Policy
-- legal text for the “Data Security” section of the Privacy Policy
-- legal text for the “Your Rights & Choices” section of the Privacy Policy
-- legal text for the “Children's Privacy” section of the Privacy Policy
-- legal text for the “Changes to This Policy” section of the Privacy Policy
-
-### Terms of Use
-
-- effective date
-- legal text for the “Acceptance of Terms” section of the Terms of Use
-- legal text for the “Use of the Site” section of the Terms of Use
-- legal text for the “Membership Accounts” section of the Terms of Use
-- legal text for the “Intellectual Property” section of the Terms of Use
-- legal text for the “Prohibited Conduct” section of the Terms of Use
-- legal text for the “Disclaimers” section of the Terms of Use
-- legal text for the “Limitation of Liability” section of the Terms of Use
-- legal text for the “Governing Law” section of the Terms of Use
-- legal text for the “Changes to These Terms” section of the Terms of Use
-
-### Membership Terms
-
-- effective date
-- legal text for the “Membership Eligibility” section of the Membership Terms
-- legal text for the “Membership Fees & Renewal” section of the Membership Terms
-- legal text for the “Individual vs. Family Membership” section of the Membership Terms
-- legal text for the “Member Benefits” section of the Membership Terms
-- legal text for the “Cancellation & Refunds” section of the Membership Terms
-- legal text for the “Termination of Membership” section of the Membership Terms
-- legal text for the “Changes to Membership Terms” section of the Membership Terms
-
-### Referral Program Rules
-
-- effective date
-- legal text for the “Program Overview” section of the Referral Program Rules
-- legal text for the “Eligibility to Refer” section of the Referral Program Rules
-- legal text for the “Points & Awarding of Points” section of the Referral Program Rules
-- legal text for the “Duplicate & Fraudulent Referrals” section of the Referral Program Rules
-- legal text for the “Scholarship Eligibility Disclaimer” section of the Referral Program Rules
-- legal text for the “Program Changes & Termination” section of the Referral Program Rules
-
-### Scholarship Terms
-
-- effective date
-- legal text for the “Program Overview” section of the Scholarship Terms
-- legal text for the “Eligibility Requirements” section of the Scholarship Terms
-- legal text for the “Application Process” section of the Scholarship Terms
-- legal text for the “Award Levels — No Guarantee of Award” section of the Scholarship Terms
-- legal text for the “Selection & Verification” section of the Scholarship Terms
-- legal text for the “Use of Funds” section of the Scholarship Terms
-- legal text for the “Program Changes” section of the Scholarship Terms
-
-### Donation and Refund Policy
-
-- effective date
-- legal text for the “Donation Overview” section of the Donation and Refund Policy
-- legal text for the “Tax-Deductibility” section of the Donation and Refund Policy
-- legal text for the “Refund Policy” section of the Donation and Refund Policy
-- legal text for the “Recurring Donations” section of the Donation and Refund Policy
-- legal text for the “Retailer & Restaurant Partner Discount Terms” section of the Donation and Refund Policy
-
-### Accessibility Statement
-
-- effective date
-- legal text for the “Our Commitment” section of the Accessibility Statement
-- legal text for the “Standards We Follow” section of the Accessibility Statement
-- legal text for the “Known Limitations” section of the Accessibility Statement
-- legal text for the “Feedback & Assistance” section of the Accessibility Statement
-
-### Partner Disclosures & Financial Transparency
-
-- effective date
-- legal text for the “Partner Relationships & Compensation” section of the Partner Disclosures & Financial Transparency
-- legal text for the “Fundraising Methods Disclosure” section of the Partner Disclosures & Financial Transparency
-- legal text for the “Financial Reporting & Annual Report” section of the Partner Disclosures & Financial Transparency
-- legal text for the “Board Oversight” section of the Partner Disclosures & Financial Transparency
-
-## A note on the 8 legal pages
-
-Every legal page (Privacy Policy, Terms of Use, Membership Terms, Referral Program Rules, Scholarship Terms, Donation and Refund Policy, Accessibility Statement, Partner Disclosures & Financial Transparency) is built as a **structural skeleton only** — correct section headings for that document type, in the right order, with the base theme's actual compliance disclaimer language reused verbatim where it applies (e.g. "Membership benefits, referral rewards, scholarships, discounts, partner participation, donation arrangements, and eligibility requirements are subject to official program terms.") — but every substantive legal sentence is a placeholder. **These must go through legal review before publishing**, exactly as the brief's Section 5 instructs ("Build these last. Their copy is subject to legal review.").
-
-## A note on the Community Impact statistics
-
-Every stat on the homepage and About Us page (member count, scholarships awarded, directory listings, partner locations) is a placeholder, per the brief's instruction to flag placeholder figures clearly rather than invent numbers. Replace with verified figures before launch.
+- The site no longer has separate pages for the Member Referral Program and Community Engagement — both run as sections directly on the single Programs page, matching the current design exactly.
+- Legal content moved from 8 separate pages to one page with 8 anchored sections (`/legal/#privacy`, `/legal/#terms`, etc.) — every internal link across the site already points to the new anchors.
+- The Travel Directory's 7 categories became 8 (added "State Government Agencies" as its own category, split from the old "State & Community Resources").

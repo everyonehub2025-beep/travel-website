@@ -7,19 +7,18 @@
  * pages, menus, and taxonomy terms — but it cannot create real WordPress
  * user accounts (no password data in WXR) or rows in this plugin's custom
  * `sdi_points_ledger` / `sdi_referrals` database tables (WXR only knows
- * about posts). The brief's requirement for "5 dummy members at varying
- * point totals" and "15-20 dummy referrals" therefore needs a small PHP
- * script that runs inside WordPress and calls the plugin's own APIs —
- * this file. It reuses SDI_Points / SDI_Referrals exactly as the live
- * plugin does, so the demo data is exercised through the same code path
- * a real site uses.
+ * about posts). This script runs inside WordPress and calls the plugin's
+ * own APIs (SDI_Auth, SDI_Points, SDI_Referrals) — the same code paths a
+ * real sign-up and a real referral submission use — so the demo data
+ * behaves exactly like real data would in the Member Dashboard and the
+ * admin screens.
  *
  * THIS IS DEMO DATA. Every account/email below is clearly fake
  * (@example.com) and prefixed `sdi_demo_`. Delete these accounts and
  * their ledger/referral rows before launch — see SETUP.md and
  * CLIENT-HANDOVER.md for the removal steps.
  *
- * HOW TO RUN (requires WP-CLI and both plugins/theme already active):
+ * HOW TO RUN (requires WP-CLI and both the theme and plugin already active):
  *   wp eval-file sdi-demo-content-seed.php
  *
  * Safe to run only once — it checks the `sdi_demo_seeded` option and
@@ -40,20 +39,23 @@ if ( get_option( 'sdi_demo_seeded' ) ) {
 	exit( 0 );
 }
 
-if ( ! class_exists( 'SDI_Points' ) || ! class_exists( 'SDI_Referrals' ) ) {
+if ( ! class_exists( 'SDI_Points' ) || ! class_exists( 'SDI_Referrals' ) || ! class_exists( 'SDI_Auth' ) ) {
 	echo "SDI Trust Core plugin is not active. Activate it first, then re-run this script.\n";
 	exit( 1 );
 }
 
 /**
- * Create (or fetch, if already present) a demo subscriber account.
+ * Create (or fetch, if already present) a demo member account: real
+ * `sdi_member` role, active status, so it behaves exactly like a member
+ * who signed up and verified their email.
  *
  * @param string $username Login name.
  * @param string $display  Display name.
  * @param string $email    Email address.
+ * @param string $tier     'individual' or 'family'.
  * @return int User ID.
  */
-function sdi_demo_get_or_create_user( $username, $display, $email ) {
+function sdi_demo_get_or_create_member( $username, $display, $email, $tier = 'individual' ) {
 	$existing = get_user_by( 'login', $username );
 	if ( $existing ) {
 		return $existing->ID;
@@ -65,7 +67,7 @@ function sdi_demo_get_or_create_user( $username, $display, $email ) {
 			'user_pass'    => wp_generate_password( 20 ),
 			'user_email'   => $email,
 			'display_name' => $display,
-			'role'         => 'subscriber',
+			'role'         => SDI_Auth::ROLE,
 		)
 	);
 
@@ -73,6 +75,11 @@ function sdi_demo_get_or_create_user( $username, $display, $email ) {
 		echo 'Could not create user ' . esc_html( $username ) . ': ' . esc_html( $user_id->get_error_message() ) . "\n";
 		return 0;
 	}
+
+	update_user_meta( $user_id, 'sdi_membership_tier', $tier );
+	update_user_meta( $user_id, 'sdi_membership_status', SDI_Auth::STATUS_ACTIVE );
+	update_user_meta( $user_id, 'sdi_member_since', gmdate( 'Y-m-d H:i:s' ) );
+	SDI_Auth::get_referral_code( $user_id ); // Generates and stores one.
 
 	return $user_id;
 }
@@ -84,18 +91,18 @@ echo "Seeding SDI Travel Trust demo content...\n\n";
 // ---------------------------------------------------------------------
 
 $tier_members = array(
-	array( 'sdi_demo_member_zero', 'Jordan Ellis (Demo — 0 pts)', 'sdi.demo.zero@example.com', 0 ),
-	array( 'sdi_demo_member_300', 'Priya Nataraj (Demo — 300 pts)', 'sdi.demo.tier300@example.com', 300 ),
-	array( 'sdi_demo_member_600', 'Marcus Webb (Demo — 600 pts)', 'sdi.demo.tier600@example.com', 600 ),
-	array( 'sdi_demo_member_900', 'Renee Castillo (Demo — 900 pts)', 'sdi.demo.tier900@example.com', 900 ),
-	array( 'sdi_demo_member_1200', 'Aiden Cho (Demo — 1,200 pts)', 'sdi.demo.tier1200@example.com', 1200 ),
+	array( 'sdi_demo_member_zero', 'Jordan Ellis (Demo — 0 pts)', 'sdi.demo.zero@example.com', 0, 'individual' ),
+	array( 'sdi_demo_member_300', 'Priya Nataraj (Demo — 300 pts)', 'sdi.demo.tier300@example.com', 300, 'individual' ),
+	array( 'sdi_demo_member_600', 'Marcus Webb (Demo — 600 pts)', 'sdi.demo.tier600@example.com', 600, 'family' ),
+	array( 'sdi_demo_member_900', 'Renee Castillo (Demo — 900 pts)', 'sdi.demo.tier900@example.com', 900, 'family' ),
+	array( 'sdi_demo_member_1200', 'Aiden Cho (Demo — 1,200 pts)', 'sdi.demo.tier1200@example.com', 1200, 'family' ),
 );
 
 $tier_member_ids = array();
 
 foreach ( $tier_members as $m ) {
-	list( $username, $display, $email, $target_balance ) = $m;
-	$user_id = sdi_demo_get_or_create_user( $username, $display, $email );
+	list( $username, $display, $email, $target_balance, $tier ) = $m;
+	$user_id = sdi_demo_get_or_create_member( $username, $display, $email, $tier );
 	if ( ! $user_id ) {
 		continue;
 	}
@@ -116,12 +123,16 @@ foreach ( $tier_members as $m ) {
 }
 
 // One harmless pending referral per tier member (doesn't affect balance).
+// 'system' context: this script has no logged-in user of its own, so it
+// submits on each member's behalf the same way a verified sign-up via
+// their referral link does — see SDI_Auth::maybe_record_referral().
 foreach ( $tier_member_ids as $balance => $user_id ) {
 	SDI_Referrals::submit(
 		$user_id,
 		'Demo Referral ' . $balance,
 		'sdi.demo.referral.' . $balance . '@example.com',
-		''
+		'',
+		'system'
 	);
 }
 
@@ -132,9 +143,9 @@ foreach ( $tier_member_ids as $balance => $user_id ) {
 // ---------------------------------------------------------------------
 
 $referrers = array(
-	sdi_demo_get_or_create_user( 'sdi_demo_referrer_1', 'Dana Whitfield (Demo)', 'sdi.demo.referrer1@example.com' ),
-	sdi_demo_get_or_create_user( 'sdi_demo_referrer_2', 'Sam Okafor (Demo)', 'sdi.demo.referrer2@example.com' ),
-	sdi_demo_get_or_create_user( 'sdi_demo_referrer_3', 'Lena Petrova (Demo)', 'sdi.demo.referrer3@example.com' ),
+	sdi_demo_get_or_create_member( 'sdi_demo_referrer_1', 'Dana Whitfield (Demo)', 'sdi.demo.referrer1@example.com' ),
+	sdi_demo_get_or_create_member( 'sdi_demo_referrer_2', 'Sam Okafor (Demo)', 'sdi.demo.referrer2@example.com' ),
+	sdi_demo_get_or_create_member( 'sdi_demo_referrer_3', 'Lena Petrova (Demo)', 'sdi.demo.referrer3@example.com' ),
 );
 $referrers = array_values( array_filter( $referrers ) );
 
@@ -151,7 +162,7 @@ foreach ( $referrers as $referrer_id ) {
 	for ( $i = 0; $i < 5 && $idx < count( $demo_referral_names ); $i++, $idx++ ) {
 		$name  = $demo_referral_names[ $idx ];
 		$email = 'sdi.demo.' . sanitize_title( $name ) . '@example.com';
-		$result = SDI_Referrals::submit( $referrer_id, $name, $email, '' );
+		$result = SDI_Referrals::submit( $referrer_id, $name, $email, '', 'system' );
 		if ( ! is_wp_error( $result ) ) {
 			$referral_ids[] = $result;
 		}
@@ -173,10 +184,10 @@ foreach ( $to_reject as $rid ) {
 
 // A couple of intentional duplicates.
 if ( ! empty( $referrers[0] ) && ! empty( $demo_referral_names ) ) {
-	SDI_Referrals::submit( $referrers[0], $demo_referral_names[0], 'sdi.demo.' . sanitize_title( $demo_referral_names[0] ) . '@example.com', '' );
+	SDI_Referrals::submit( $referrers[0], $demo_referral_names[0], 'sdi.demo.' . sanitize_title( $demo_referral_names[0] ) . '@example.com', '', 'system' );
 }
 if ( ! empty( $referrers[1] ) && count( $demo_referral_names ) > 5 ) {
-	SDI_Referrals::submit( $referrers[1], $demo_referral_names[5], 'sdi.demo.' . sanitize_title( $demo_referral_names[5] ) . '@example.com', '' );
+	SDI_Referrals::submit( $referrers[1], $demo_referral_names[5], 'sdi.demo.' . sanitize_title( $demo_referral_names[5] ) . '@example.com', '', 'system' );
 }
 
 update_option( 'sdi_demo_seeded', gmdate( 'Y-m-d H:i:s' ) );

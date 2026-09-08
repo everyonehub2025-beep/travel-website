@@ -55,7 +55,8 @@ $modules              = get_option( 'sdi_enabled_modules', array() );
 			</tbody>
 		</table>
 
-		<h2><?php esc_html_e( 'Membership Bridge (MemberPress)', 'sdi-trust-core' ); ?></h2>
+		<h2><?php esc_html_e( 'Membership Bridge (optional — MemberPress)', 'sdi-trust-core' ); ?></h2>
+		<p class="description"><?php esc_html_e( 'Membership works natively by default — sign-up, email verification, login and status are all built into this plugin and need nothing below. These two fields only matter if this site also runs MemberPress and you want its product purchases to control membership status instead of the native system.', 'sdi-trust-core' ); ?></p>
 		<table class="form-table">
 			<tr>
 				<th><label for="sdi_membership_individual_product_id"><?php esc_html_e( 'Individual Membership product ID', 'sdi-trust-core' ); ?></label></th>
@@ -67,7 +68,7 @@ $modules              = get_option( 'sdi_enabled_modules', array() );
 			</tr>
 		</table>
 		<?php if ( ! SDI_Membership::is_memberpress_active() ) : ?>
-			<p class="description"><?php esc_html_e( 'MemberPress is not currently active. These fields will take effect once it is installed and configured.', 'sdi-trust-core' ); ?></p>
+			<p class="description"><?php esc_html_e( 'MemberPress is not currently active, so these fields have no effect right now.', 'sdi-trust-core' ); ?></p>
 		<?php endif; ?>
 
 		<h2><?php esc_html_e( 'Email Templates', 'sdi-trust-core' ); ?></h2>
