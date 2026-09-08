@@ -1,0 +1,220 @@
+/*
+ * SDI Travel — page-specific component classes used inside Elementor
+ * page content (hero, pricing cards, stats, tier tables, etc). Kept
+ * separate from layout.css (site chrome) and base.css (generic
+ * primitives) so page-content styling has one clear home.
+ */
+
+/* ---------- Hero ---------- */
+
+.sdi-hero {
+	padding-block: clamp(64px, 10vw, 140px);
+	text-align: center;
+}
+
+.sdi-hero__content {
+	max-width: 760px;
+}
+
+.sdi-hero__subhead {
+	font-size: 1.15rem;
+	color: var(--sdi-color-platinum);
+}
+
+.sdi-hero__actions {
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* ---------- Narrow content container ---------- */
+
+.sdi-container--narrow {
+	max-width: 820px;
+}
+
+/* ---------- Pricing cards ---------- */
+
+.sdi-pricing-card {
+	text-align: center;
+}
+
+.sdi-price {
+	font-family: var(--sdi-font-heading);
+	font-size: 2.75rem;
+	color: var(--sdi-color-navy);
+	margin: 0.2em 0 0.6em;
+}
+
+.sdi-price span {
+	font-size: 1rem;
+	font-family: var(--sdi-font-body);
+	color: var(--sdi-text-muted);
+	font-weight: 400;
+}
+
+/* ---------- Category / icon cards ---------- */
+
+.sdi-category-card {
+	text-align: center;
+}
+
+.sdi-category-card .elementor-icon-box-wrapper {
+	flex-direction: column;
+	text-align: center;
+}
+
+.sdi-category-card .elementor-icon {
+	font-size: 2rem;
+	margin-bottom: 0.5em;
+	color: var(--sdi-color-navy-mid);
+}
+
+/* ---------- Tier / pricing tables ---------- */
+
+.sdi-tier-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.5em 0;
+}
+
+.sdi-tier-table th,
+.sdi-tier-table td {
+	text-align: left;
+	padding: 0.75em 1em;
+	border-bottom: 1px solid rgba(191, 191, 197, 0.3);
+}
+
+.sdi-section--navy .sdi-tier-table th,
+.sdi-section--navy .sdi-tier-table td {
+	border-bottom-color: rgba(191, 191, 197, 0.25);
+}
+
+.sdi-tier-table th {
+	font-family: var(--sdi-font-heading);
+}
+
+.sdi-fine-print {
+	font-size: 0.82rem;
+	color: var(--sdi-text-muted);
+	font-style: italic;
+}
+
+.sdi-section--navy .sdi-fine-print {
+	color: var(--sdi-color-platinum);
+}
+
+/* ---------- Stats strip ---------- */
+
+.sdi-stat {
+	text-align: center;
+	padding: 1em;
+}
+
+.sdi-stat__value {
+	display: block;
+	font-family: var(--sdi-font-heading);
+	font-size: 2.5rem;
+	color: var(--sdi-color-navy);
+}
+
+.sdi-section--navy .sdi-stat__value {
+	color: var(--sdi-color-white);
+}
+
+.sdi-stat__label {
+	display: block;
+	color: var(--sdi-text-muted);
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin-top: 0.4em;
+}
+
+/* ---------- Avatar placeholder ---------- */
+
+.sdi-avatar-placeholder {
+	width: 72px;
+	margin-inline: auto;
+	margin-bottom: 1em;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.sdi-avatar-placeholder .sdi-placeholder__label {
+	font-size: 0.55rem;
+	padding: 0.2em;
+}
+
+/* ---------- Directory listing cards (Travel Directory page) ---------- */
+
+.sdi-listing-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.sdi-listing-card__category {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--sdi-color-gold);
+	font-weight: 600;
+}
+
+/* ---------- Anchor sub-nav (About Us page) ---------- */
+
+.sdi-subnav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em 1.5em;
+	justify-content: center;
+	padding: 1em 0;
+}
+
+.sdi-subnav a {
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: var(--sdi-color-navy);
+	text-decoration: none;
+	border-bottom: 2px solid var(--sdi-color-platinum);
+	padding-bottom: 0.2em;
+}
+
+.sdi-subnav a:hover {
+	border-bottom-color: var(--sdi-color-gold);
+}
+
+/* ---------- Process steps (Programs pages) ---------- */
+
+.sdi-process-step {
+	display: flex;
+	gap: 1em;
+	align-items: flex-start;
+}
+
+.sdi-process-step__number {
+	flex: 0 0 auto;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: var(--sdi-color-navy);
+	color: var(--sdi-color-white);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--sdi-font-heading);
+	font-weight: 600;
+}
+
+/* ---------- Team / leadership cards (About Us) ---------- */
+
+.sdi-team-card {
+	text-align: center;
+}
+
+.sdi-team-card__avatar {
+	width: 140px;
+	margin: 0 auto 1em;
+	border-radius: 50%;
+	overflow: hidden;
+}

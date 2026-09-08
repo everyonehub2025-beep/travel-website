@@ -12,11 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
+<?php if ( is_home() && ! is_front_page() ) : ?>
+	<div class="sdi-section sdi-section--navy" style="text-align:center;">
+		<div class="sdi-container">
+			<h1><?php esc_html_e( 'News & Resources', 'sdi-travel' ); ?></h1>
+			<p><?php esc_html_e( 'Travel education articles, member announcements, scholarship updates, partner news, and community impact reports.', 'sdi-travel' ); ?></p>
+		</div>
+	</div>
+<?php endif; ?>
+
 <div class="sdi-section sdi-section--light">
 	<div class="sdi-container">
-		<?php if ( is_home() && ! is_front_page() ) : ?>
-			<h1><?php esc_html_e( 'News & Resources', 'sdi-travel' ); ?></h1>
-		<?php elseif ( have_posts() ) : ?>
+		<?php if ( ! is_home() && have_posts() ) : ?>
 			<h1><?php printf( '%s', wp_kses_post( get_the_archive_title() ) ); ?></h1>
 		<?php endif; ?>
 
