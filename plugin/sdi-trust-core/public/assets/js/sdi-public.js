@@ -47,9 +47,47 @@
 		} );
 	}
 
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', initDashboardTabs );
-	} else {
+	function initCopyButtons() {
+		document.querySelectorAll( '[data-sdi-copy]' ).forEach( function ( button ) {
+			button.addEventListener( 'click', function () {
+				var text = button.getAttribute( 'data-sdi-copy' );
+				var done = function () {
+					var original = button.textContent;
+					button.textContent = button.getAttribute( 'data-sdi-copied-label' ) || 'Copied!';
+					window.setTimeout( function () {
+						button.textContent = original;
+					}, 2000 );
+				};
+
+				if ( navigator.clipboard && window.isSecureContext ) {
+					navigator.clipboard.writeText( text ).then( done ).catch( function () {} );
+				} else {
+					var input = document.createElement( 'textarea' );
+					input.value = text;
+					input.style.position = 'fixed';
+					input.style.left = '-9999px';
+					document.body.appendChild( input );
+					input.select();
+					try {
+						document.execCommand( 'copy' );
+						done();
+					} catch ( err ) {
+						// Clipboard unavailable — the link text is still visible to select manually.
+					}
+					document.body.removeChild( input );
+				}
+			} );
+		} );
+	}
+
+	function init() {
 		initDashboardTabs();
+		initCopyButtons();
+	}
+
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', init );
+	} else {
+		init();
 	}
 } )();

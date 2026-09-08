@@ -9,8 +9,8 @@
 .elementor-widget-button .elementor-button.sdi-btn {
 	background-color: var(--sdi-cta);
 	color: var(--sdi-color-navy);
-	border-radius: 4px;
-	padding: 0.85em 1.9em;
+	border-radius: var(--sdi-radius);
+	padding: 0.9em 1.7em;
 	font-family: var(--sdi-font-body);
 	font-weight: 600;
 	box-shadow: none;

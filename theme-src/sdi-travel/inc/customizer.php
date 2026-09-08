@@ -48,6 +48,12 @@ function sdi_customize_register( $wp_customize ) {
 			'type'        => 'text',
 			'sanitize_cb' => 'sanitize_text_field',
 		),
+		'sdi_ein'            => array(
+			'default'     => '[PLACEHOLDER: EIN]',
+			'label'       => __( '501(c)(3) EIN', 'sdi-travel' ),
+			'type'        => 'text',
+			'sanitize_cb' => 'sanitize_text_field',
+		),
 		'sdi_social_facebook' => array(
 			'default'     => '',
 			'label'       => __( 'Facebook URL', 'sdi-travel' ),

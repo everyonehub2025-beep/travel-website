@@ -6,34 +6,64 @@
  * every non-Elementor template file (header, footer, 404, plugin
  * dashboard) so the whole site — theme and plugin alike — rebrands from
  * this one file.
+ *
+ * Palette matches the SDI Travel Trust Design System handoff.
  */
 
 :root {
 	/* Brand palette */
-	--sdi-color-navy: #0A1D3B;      /* Primary Navy — headers, nav, footer, body text on light */
-	--sdi-color-navy-mid: #102448;  /* Midnight Navy — section backgrounds, hover states */
-	--sdi-color-silver: #97999D;    /* Cool Silver — secondary text, dividers, icon accents */
-	--sdi-color-platinum: #BFBFC5;  /* Platinum — borders, card backgrounds, subtle fills */
-	--sdi-color-offwhite: #F7F8FA;  /* Off-White — page background, never pure white */
-	--sdi-color-white: #FFFFFF;     /* White — cards, reversed text on navy */
-	--sdi-color-gold: #C89B3C;      /* Warm Gold — CTA buttons ONLY, never large fills */
+	--sdi-color-navy: #0A1D3B;        /* Primary Navy — nav, footer, headings, body text on light */
+	--sdi-color-midnight: #071527;    /* Midnight Navy — deepest section backgrounds, footer base */
+	--sdi-color-navy-soft: #25344b;   /* Soft Navy — secondary panels on dark sections */
+	--sdi-color-navy-mid: var(--sdi-color-navy-soft); /* Back-compat alias for older CSS */
+	--sdi-color-silver: #97999D;      /* Cool Silver — secondary text, dividers */
+	--sdi-color-platinum: #BFBFC5;    /* Platinum — borders, route-line strokes */
+	--sdi-color-offwhite: #F7F8FA;    /* Off-White — page background, never pure white */
+	--sdi-color-white: #FFFFFF;       /* White — cards, reversed text on navy */
+	--sdi-color-gold: #C89B3C;        /* Warm Gold — CTA buttons and accents ONLY, never large fills */
+	--sdi-color-gold-deep: #8a6a1f;   /* Deep Gold — gold text on light backgrounds (AA contrast) */
+	--sdi-color-rust: #9A3324;        /* Rust Red — error/urgent notices only */
+
+	/* Neutral scale (borders, hairlines, muted fills) */
+	--sdi-color-border-light: #E2E4E9;
+	--sdi-color-border: #DCDEE3;
+	--sdi-color-fill-muted: #EDEEF1;
+
+	/* Text scale on light backgrounds */
+	--sdi-color-text-secondary: #47546c;
+	--sdi-color-text-tertiary: #5b6779;
 
 	/* Semantic aliases used throughout theme templates */
 	--sdi-bg-page: var(--sdi-color-offwhite);
 	--sdi-bg-card: var(--sdi-color-white);
 	--sdi-bg-section-alt: var(--sdi-color-navy);
+	--sdi-bg-section-deep: var(--sdi-color-midnight);
 	--sdi-text-body: var(--sdi-color-navy);
+	--sdi-text-secondary: var(--sdi-color-text-secondary);
 	--sdi-text-muted: var(--sdi-color-silver);
 	--sdi-text-on-navy: var(--sdi-color-white);
-	--sdi-border: var(--sdi-color-platinum);
+	--sdi-text-on-navy-muted: var(--sdi-color-platinum);
+	--sdi-border: var(--sdi-color-border);
+	--sdi-border-light: var(--sdi-color-border-light);
 	--sdi-cta: var(--sdi-color-gold);
+	--sdi-cta-text: var(--sdi-color-gold-deep);
+	--sdi-danger: var(--sdi-color-rust);
 
 	/* Typography */
-	--sdi-font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
-	--sdi-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--sdi-font-heading: 'Bodoni Moda', Didot, Georgia, 'Times New Roman', serif;
+	--sdi-font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 	/* Layout */
 	--sdi-container-max: 1200px;
-	--sdi-radius: 8px;
-	--sdi-shadow-card: 0 8px 24px rgba(10, 29, 59, 0.08);
+	--sdi-radius: 2px;
+	--sdi-radius-form: 2px;
+	--sdi-shadow-card: none;
+	--sdi-shadow-card-hover: 0 6px 18px rgba(10, 29, 59, 0.16);
+	--sdi-shadow-header: 0 1px 0 rgba(10, 29, 59, 0.08);
+
+	/* Motion timing — no scale transforms anywhere; translateY + color/shadow only */
+	--sdi-motion-reveal: 780ms;
+	--sdi-motion-stagger: 90ms;
+	--sdi-motion-state: 560ms;
+	--sdi-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }

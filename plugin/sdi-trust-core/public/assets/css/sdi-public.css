@@ -16,14 +16,16 @@
 .sdi-progress,
 .sdi-notice {
 	--sdi-navy: var(--sdi-color-navy, #0A1D3B);
-	--sdi-navy-mid: var(--sdi-color-navy-mid, #102448);
+	--sdi-navy-mid: var(--sdi-color-navy-soft, #25344b);
 	--sdi-silver: var(--sdi-color-silver, #97999D);
 	--sdi-platinum: var(--sdi-color-platinum, #BFBFC5);
 	--sdi-offwhite: var(--sdi-color-offwhite, #F7F8FA);
 	--sdi-white: var(--sdi-color-white, #FFFFFF);
 	--sdi-gold: var(--sdi-color-gold, #C89B3C);
-	--sdi-font-heading: var(--sdi-font-heading, 'Playfair Display', Georgia, serif);
-	--sdi-font-body: var(--sdi-font-body, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
+	--sdi-gold-deep: var(--sdi-color-gold-deep, #8a6a1f);
+	--sdi-border: var(--sdi-color-border, #DCDEE3);
+	--sdi-font-heading: var(--sdi-font-heading, 'Bodoni Moda', Georgia, serif);
+	--sdi-font-body: var(--sdi-font-body, 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif);
 
 	font-family: var(--sdi-font-body);
 	color: var(--sdi-navy);
@@ -44,23 +46,23 @@
 	font-family: var(--sdi-font-body);
 	font-weight: 600;
 	font-size: 0.95rem;
-	padding: 0.75em 1.75em;
-	border-radius: 4px;
+	padding: 0.85em 1.6em;
+	border-radius: 2px;
 	text-decoration: none;
-	border: 2px solid transparent;
+	border: 1px solid transparent;
 	cursor: pointer;
-	transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+	transition: box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .sdi-btn--primary {
 	background-color: var(--sdi-gold);
+	border-color: var(--sdi-gold);
 	color: var(--sdi-navy);
 }
 
 .sdi-btn--primary:hover,
 .sdi-btn--primary:focus-visible {
-	transform: translateY(-1px);
-	box-shadow: 0 6px 16px rgba(200, 155, 60, 0.35);
+	box-shadow: 0 6px 18px rgba(10, 29, 59, 0.10);
 }
 
 .sdi-btn--outline {
@@ -79,7 +81,7 @@
 
 .sdi-notice {
 	padding: 1em 1.25em;
-	border-radius: 6px;
+	border-radius: 2px;
 	margin-bottom: 1.5em;
 	border-left: 4px solid var(--sdi-silver);
 	background: var(--sdi-offwhite);
@@ -107,8 +109,8 @@
 
 .sdi-dashboard {
 	background: var(--sdi-white);
-	border: 1px solid var(--sdi-platinum);
-	border-radius: 10px;
+	border: 1px solid var(--sdi-border);
+	border-radius: 2px;
 	overflow: hidden;
 }
 
@@ -194,12 +196,93 @@
 
 .sdi-stat-card {
 	background: var(--sdi-offwhite);
-	border: 1px solid var(--sdi-platinum);
-	border-radius: 8px;
+	border: 1px solid var(--sdi-border);
+	border-radius: 2px;
 	padding: 1.25em;
 	display: flex;
 	flex-direction: column;
 	gap: 0.4em;
+}
+
+/* ---------- Dark promo/summary card (Overview "Your progress", etc.) ---------- */
+
+.sdi-hero-card {
+	position: relative;
+	overflow: hidden;
+	background: var(--sdi-navy);
+	border-top: 3px solid var(--sdi-gold);
+	padding: 1.9em 1.7em;
+	color: var(--sdi-white);
+}
+
+.sdi-hero-card__kicker {
+	margin: 0;
+	font-family: var(--sdi-font-heading);
+	font-size: 1.1rem;
+	color: var(--sdi-gold);
+}
+
+.sdi-hero-card__stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2em;
+	align-items: baseline;
+	margin-top: 1.1em;
+}
+
+.sdi-hero-card__stat-value {
+	display: block;
+	font-family: var(--sdi-font-heading);
+	font-size: 2.4rem;
+	font-weight: 600;
+	color: var(--sdi-gold);
+}
+
+.sdi-hero-card__stat-label {
+	display: block;
+	margin-top: 0.5em;
+	font-size: 0.78rem;
+	color: var(--sdi-platinum);
+}
+
+.sdi-hero-card__track {
+	margin-top: 1.5em;
+	height: 10px;
+	background: rgba(247, 248, 250, 0.14);
+}
+
+.sdi-hero-card__fill {
+	height: 100%;
+	background: var(--sdi-gold);
+}
+
+/* ---------- Referral link box ---------- */
+
+.sdi-referral-box {
+	margin-top: 0.9em;
+	padding: 0.9em 1em;
+	background: var(--sdi-offwhite);
+	border: 1px solid var(--sdi-border);
+	font-family: ui-monospace, Menlo, monospace;
+	font-size: 0.85rem;
+	word-break: break-all;
+}
+
+/* ---------- Dependent chip ---------- */
+
+.sdi-chip {
+	display: inline-block;
+	margin: 0 0.5em 0.5em 0;
+	padding: 0.6em 0.8em;
+	background: var(--sdi-offwhite);
+	border: 1px solid var(--sdi-border);
+	font-size: 0.88rem;
+}
+
+.sdi-chip--dashed {
+	background: transparent;
+	border-style: dashed;
+	cursor: pointer;
 }
 
 .sdi-stat-card__label {
@@ -351,14 +434,16 @@
 	color: var(--sdi-navy);
 }
 
-.sdi-form__field input {
+.sdi-form__field input,
+.sdi-form__field select,
+.sdi-form__field textarea {
 	width: 100%;
-	padding: 0.7em 0.9em;
+	padding: 0.8em 0.9em;
 	border: 1px solid var(--sdi-platinum);
-	border-radius: 6px;
+	border-radius: 2px;
 	font-family: var(--sdi-font-body);
 	font-size: 0.95rem;
-	background: var(--sdi-white);
+	background: var(--sdi-offwhite);
 	color: var(--sdi-navy);
 }
 
@@ -381,10 +466,10 @@
 }
 
 .sdi-offer-card {
-	background: var(--sdi-offwhite);
-	border: 1px solid var(--sdi-platinum);
-	border-radius: 8px;
-	padding: 1.25em;
+	background: var(--sdi-white);
+	border: 1px solid var(--sdi-border);
+	border-radius: 2px;
+	padding: 1.4em;
 }
 
 .sdi-offer-card__partner {

@@ -35,7 +35,7 @@ get_header();
 					?>
 					<article <?php post_class( 'sdi-card sdi-hover-lift sdi-animate' ); ?>>
 						<?php if ( has_post_thumbnail() ) : ?>
-							<a href="<?php the_permalink(); ?>" class="sdi-hover-zoom" style="display:block; margin: -2em -2em 1em;">
+							<a href="<?php the_permalink(); ?>" style="display:block; margin: -2em -2em 1em;">
 								<?php the_post_thumbnail( 'sdi-card' ); ?>
 							</a>
 						<?php else : ?>

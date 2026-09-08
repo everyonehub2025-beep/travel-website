@@ -1,12 +1,14 @@
 <?php
 /**
- * MemberPress bridge — loosely coupled.
+ * Membership state — native by default, with an optional MemberPress
+ * bridge for a site that already runs it.
  *
- * Every call into MemberPress is wrapped in class_exists()/function_exists()
- * so the plugin activates and runs cleanly whether or not MemberPress is
- * installed. When it's absent, membership gating degrades open (features
- * work for any logged-in user) rather than fatal-erroring or silently
- * locking everyone out.
+ * The primary source of truth is the `sdi_member` role plus the
+ * `sdi_membership_status`/`sdi_membership_tier` user meta set by
+ * SDI_Auth (native sign-up, email verification, and the profile-screen
+ * admin override). If MemberPress is also active — e.g. a client migrating
+ * from an existing MemberPress setup — its product subscriptions take
+ * precedence, so nothing here breaks a site that still relies on it.
  *
  * @package SDI_Trust_Core
  */
@@ -16,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Thin read-only bridge into MemberPress membership state.
+ * Membership status/plan lookups.
  */
 class SDI_Membership {
 
@@ -32,10 +34,6 @@ class SDI_Membership {
 	/**
 	 * Whether a user currently holds an active SDI membership.
 	 *
-	 * Degrades to "true" for any logged-in user when MemberPress is not
-	 * installed, so referral/points features remain usable during setup
-	 * or on a site that manages membership another way.
-	 *
 	 * @param int $user_id User ID.
 	 * @return bool
 	 */
@@ -46,19 +44,23 @@ class SDI_Membership {
 			return false;
 		}
 
-		if ( ! self::is_memberpress_active() ) {
-			return (bool) get_userdata( $user_id );
+		if ( self::is_memberpress_active() ) {
+			$mepr_user = new \MeprUser( $user_id );
+			return (bool) $mepr_user->is_active();
 		}
 
-		$mepr_user = new \MeprUser( $user_id );
+		$user = get_userdata( $user_id );
 
-		return (bool) $mepr_user->is_active();
+		if ( ! $user || ! in_array( SDI_Auth::ROLE, (array) $user->roles, true ) ) {
+			return false;
+		}
+
+		return SDI_Auth::STATUS_ACTIVE === SDI_Auth::get_status( $user_id );
 	}
 
 	/**
 	 * Resolve a user's membership plan as 'individual', 'family', or
-	 * 'none'. Product IDs are configured in Settings so this stays correct
-	 * if the client renames or re-creates MemberPress products.
+	 * 'none'.
 	 *
 	 * @param int $user_id User ID.
 	 * @return string
@@ -66,31 +68,37 @@ class SDI_Membership {
 	public static function get_plan( $user_id ) {
 		$user_id = absint( $user_id );
 
-		if ( ! self::is_memberpress_active() || ! $user_id ) {
+		if ( ! $user_id ) {
 			return 'none';
 		}
 
-		$mepr_user       = new \MeprUser( $user_id );
-		$active_products = method_exists( $mepr_user, 'active_product_subscriptions' )
-			? $mepr_user->active_product_subscriptions( 'ids' )
-			: array();
+		if ( self::is_memberpress_active() ) {
+			$mepr_user       = new \MeprUser( $user_id );
+			$active_products = method_exists( $mepr_user, 'active_product_subscriptions' )
+				? $mepr_user->active_product_subscriptions( 'ids' )
+				: array();
 
-		if ( empty( $active_products ) ) {
+			if ( empty( $active_products ) ) {
+				return 'none';
+			}
+
+			$individual_id = absint( get_option( 'sdi_membership_individual_product_id', 0 ) );
+			$family_id     = absint( get_option( 'sdi_membership_family_product_id', 0 ) );
+
+			if ( $family_id && in_array( $family_id, $active_products, true ) ) {
+				return 'family';
+			}
+
+			if ( $individual_id && in_array( $individual_id, $active_products, true ) ) {
+				return 'individual';
+			}
+
 			return 'none';
 		}
 
-		$individual_id = absint( get_option( 'sdi_membership_individual_product_id', 0 ) );
-		$family_id     = absint( get_option( 'sdi_membership_family_product_id', 0 ) );
+		$tier = SDI_Auth::get_tier( $user_id );
 
-		if ( $family_id && in_array( $family_id, $active_products, true ) ) {
-			return 'family';
-		}
-
-		if ( $individual_id && in_array( $individual_id, $active_products, true ) ) {
-			return 'individual';
-		}
-
-		return 'none';
+		return $tier ? $tier : 'none';
 	}
 
 	/**
@@ -101,10 +109,6 @@ class SDI_Membership {
 	 * @return string
 	 */
 	public static function get_status_label( $user_id ) {
-		if ( ! self::is_memberpress_active() ) {
-			return __( 'Membership status unavailable — MemberPress is not connected.', 'sdi-trust-core' );
-		}
-
 		$plan = self::get_plan( $user_id );
 
 		if ( 'none' === $plan ) {
@@ -112,15 +116,18 @@ class SDI_Membership {
 		}
 
 		$is_active = self::is_active_member( $user_id );
+		$plan_label = ( 'family' === $plan ) ? __( 'Family', 'sdi-trust-core' ) : __( 'Individual', 'sdi-trust-core' );
 
-		if ( 'family' === $plan ) {
-			return $is_active
-				? __( 'Family Membership — Active', 'sdi-trust-core' )
-				: __( 'Family Membership — Inactive', 'sdi-trust-core' );
+		if ( $is_active ) {
+			/* translators: %s: plan label (Individual/Family) */
+			return sprintf( __( '%s Membership — Active', 'sdi-trust-core' ), $plan_label );
 		}
 
-		return $is_active
-			? __( 'Individual Membership — Active', 'sdi-trust-core' )
-			: __( 'Individual Membership — Inactive', 'sdi-trust-core' );
+		if ( ! self::is_memberpress_active() && SDI_Auth::STATUS_PENDING === SDI_Auth::get_status( $user_id ) ) {
+			return __( 'Email verification pending', 'sdi-trust-core' );
+		}
+
+		/* translators: %s: plan label (Individual/Family) */
+		return sprintf( __( '%s Membership — Inactive', 'sdi-trust-core' ), $plan_label );
 	}
 }

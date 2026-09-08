@@ -16,14 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $tabs = array(
-	'overview'     => __( 'Overview', 'sdi-trust-core' ),
-	'refer'        => __( 'Refer', 'sdi-trust-core' ),
-	'points'       => __( 'Points', 'sdi-trust-core' ),
-	'scholarships' => __( 'Scholarships', 'sdi-trust-core' ),
-	'donations'    => __( 'Donations', 'sdi-trust-core' ),
-	'offers'       => __( 'Offers', 'sdi-trust-core' ),
-	'directory'    => __( 'Directory', 'sdi-trust-core' ),
-	'profile'      => __( 'Profile', 'sdi-trust-core' ),
+	'overview'  => __( 'Overview', 'sdi-trust-core' ),
+	'referrals' => __( 'Referrals & Points', 'sdi-trust-core' ),
+	'offers'    => __( 'Partner Offers', 'sdi-trust-core' ),
+	'account'   => __( 'Account Settings', 'sdi-trust-core' ),
 );
 
 if ( ! array_key_exists( $active_tab, $tabs ) ) {

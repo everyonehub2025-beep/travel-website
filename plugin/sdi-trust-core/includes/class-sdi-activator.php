@@ -31,6 +31,7 @@ class SDI_Activator {
 		self::create_tables();
 		self::add_default_options();
 		self::add_capabilities();
+		SDI_Auth::register_role();
 
 		update_option( 'sdi_tc_schema_version', self::SCHEMA_VERSION );
 

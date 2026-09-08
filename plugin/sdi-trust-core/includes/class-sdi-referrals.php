@@ -41,9 +41,13 @@ class SDI_Referrals {
 	 * @param string $name        Referred person's name.
 	 * @param string $email       Referred person's email.
 	 * @param string $phone       Referred person's phone (optional).
+	 * @param string $context     'member' (default — requires the referrer to be the
+	 *                            logged-in user, e.g. the dashboard form) or 'system'
+	 *                            (a trusted server-side caller, e.g. a verified sign-up
+	 *                            that arrived via a member's referral link).
 	 * @return int|WP_Error Inserted referral id, or WP_Error describing the failure.
 	 */
-	public static function submit( $referrer_id, $name, $email, $phone = '' ) {
+	public static function submit( $referrer_id, $name, $email, $phone = '', $context = 'member' ) {
 		global $wpdb;
 
 		$referrer_id = absint( $referrer_id );
@@ -51,7 +55,11 @@ class SDI_Referrals {
 		$email       = sanitize_email( $email );
 		$phone       = sanitize_text_field( $phone );
 
-		if ( ! $referrer_id || ! is_user_logged_in() || get_current_user_id() !== $referrer_id ) {
+		if ( ! $referrer_id ) {
+			return new WP_Error( 'sdi_not_authorized', __( 'You must be logged in to submit a referral.', 'sdi-trust-core' ) );
+		}
+
+		if ( 'system' !== $context && ( ! is_user_logged_in() || get_current_user_id() !== $referrer_id ) ) {
 			return new WP_Error( 'sdi_not_authorized', __( 'You must be logged in to submit a referral.', 'sdi-trust-core' ) );
 		}
 

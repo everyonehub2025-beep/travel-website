@@ -98,6 +98,13 @@ function sdi_inquiry_form_types() {
 				'message' => array( 'type' => 'textarea', 'label' => __( 'Tell us about your interest in a travel scholarship', 'sdi-travel' ), 'required' => true ),
 			),
 		),
+		'footer_note'              => array(
+			'label'  => __( 'Footer Note', 'sdi-travel' ),
+			'fields' => array(
+				'email'   => array( 'type' => 'email', 'label' => __( 'Your Email', 'sdi-travel' ), 'required' => true ),
+				'message' => array( 'type' => 'textarea', 'label' => __( 'How can we help?', 'sdi-travel' ), 'required' => true ),
+			),
+		),
 	);
 }
 

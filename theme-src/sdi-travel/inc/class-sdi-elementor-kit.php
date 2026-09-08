@@ -39,7 +39,7 @@ function sdi_get_brand_kit_settings() {
 			array(
 				'_id'   => 'secondary',
 				'title' => __( 'Secondary — Midnight Navy', 'sdi-travel' ),
-				'color' => '#102448',
+				'color' => '#071527',
 			),
 			array(
 				'_id'   => 'text',
@@ -73,34 +73,54 @@ function sdi_get_brand_kit_settings() {
 				'title'        => __( 'White', 'sdi-travel' ),
 				'color'        => '#FFFFFF',
 			),
+			array(
+				'_id'          => 'sdi_gold_deep',
+				'title'        => __( 'Deep Gold (text on light)', 'sdi-travel' ),
+				'color'        => '#8a6a1f',
+			),
+			array(
+				'_id'          => 'sdi_text_secondary',
+				'title'        => __( 'Text Secondary', 'sdi-travel' ),
+				'color'        => '#47546c',
+			),
+			array(
+				'_id'          => 'sdi_border',
+				'title'        => __( 'Border', 'sdi-travel' ),
+				'color'        => '#DCDEE3',
+			),
+			array(
+				'_id'          => 'sdi_rust',
+				'title'        => __( 'Rust Red (errors only)', 'sdi-travel' ),
+				'color'        => '#9A3324',
+			),
 		),
 		'system_typography' => array(
 			array(
 				'_id'                          => 'primary',
 				'title'                        => __( 'Primary — Headings', 'sdi-travel' ),
 				'typography_typography'        => 'custom',
-				'typography_font_family'       => 'Playfair Display',
+				'typography_font_family'       => 'Bodoni Moda',
 				'typography_font_weight'       => '600',
 			),
 			array(
 				'_id'                          => 'secondary',
 				'title'                        => __( 'Secondary — Body', 'sdi-travel' ),
 				'typography_typography'        => 'custom',
-				'typography_font_family'       => 'Inter',
+				'typography_font_family'       => 'Manrope',
 				'typography_font_weight'       => '400',
 			),
 			array(
 				'_id'                          => 'text',
 				'title'                        => __( 'Text', 'sdi-travel' ),
 				'typography_typography'        => 'custom',
-				'typography_font_family'       => 'Inter',
+				'typography_font_family'       => 'Manrope',
 				'typography_font_weight'       => '400',
 			),
 			array(
 				'_id'                          => 'accent',
 				'title'                        => __( 'Accent — Pull-quote Italic', 'sdi-travel' ),
 				'typography_typography'        => 'custom',
-				'typography_font_family'       => 'Playfair Display',
+				'typography_font_family'       => 'Bodoni Moda',
 				'typography_font_style'        => 'italic',
 				'typography_font_weight'       => '500',
 			),

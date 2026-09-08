@@ -34,10 +34,9 @@ function sdi_theme_setup() {
 
 	register_nav_menus(
 		array(
-			'primary'           => __( 'Primary Navigation', 'sdi-travel' ),
-			'footer-quick-links' => __( 'Footer — Quick Links', 'sdi-travel' ),
-			'footer-programs'    => __( 'Footer — Programs', 'sdi-travel' ),
-			'footer-legal'       => __( 'Footer — Legal', 'sdi-travel' ),
+			'primary'            => __( 'Primary Navigation', 'sdi-travel' ),
+			'footer-organization' => __( 'Footer — Organization', 'sdi-travel' ),
+			'footer-policies'     => __( 'Footer — Policies', 'sdi-travel' ),
 		)
 	);
 
@@ -45,6 +44,24 @@ function sdi_theme_setup() {
 	add_image_size( 'sdi-wide', 1600, 900, true );
 }
 add_action( 'after_setup_theme', 'sdi_theme_setup' );
+
+/**
+ * Fall back to the bundled SDI mark as the browser-tab favicon until the
+ * client sets a real Site Icon in Customizer > Site Identity.
+ */
+function sdi_fallback_site_icon() {
+	if ( has_site_icon() ) {
+		return;
+	}
+	?>
+	<link rel="icon" href="<?php echo esc_url( SDI_THEME_URI . '/assets/images/sdi-favicon-32.png' ); ?>" sizes="32x32" />
+	<link rel="icon" href="<?php echo esc_url( SDI_THEME_URI . '/assets/images/sdi-favicon-192.png' ); ?>" sizes="192x192" />
+	<link rel="apple-touch-icon" href="<?php echo esc_url( SDI_THEME_URI . '/assets/images/sdi-favicon-192.png' ); ?>" />
+	<?php
+}
+add_action( 'wp_head', 'sdi_fallback_site_icon' );
+add_action( 'login_head', 'sdi_fallback_site_icon' );
+add_action( 'admin_head', 'sdi_fallback_site_icon' );
 
 /**
  * Content width for embeds/oEmbed, matching the container max-width token.

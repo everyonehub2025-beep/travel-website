@@ -8,7 +8,7 @@
 
 .sdi-notice {
 	padding: 1em 1.25em;
-	border-radius: 6px;
+	border-radius: var(--sdi-radius);
 	margin-bottom: 1.5em;
 	border-left: 4px solid var(--sdi-color-silver);
 	background: var(--sdi-color-offwhite);
@@ -20,7 +20,7 @@
 }
 
 .sdi-notice--error {
-	border-left-color: #b3432b;
+	border-left-color: var(--sdi-danger);
 	background: #fbeeeb;
 }
 
@@ -47,9 +47,9 @@
 .sdi-form__field select,
 .sdi-form__field textarea {
 	width: 100%;
-	padding: 0.7em 0.9em;
-	border: 1px solid var(--sdi-border);
-	border-radius: 6px;
+	padding: 0.8em 0.9em;
+	border: 1px solid var(--sdi-color-navy-soft);
+	border-radius: var(--sdi-radius-form);
 	font-family: var(--sdi-font-body);
 	font-size: 0.95rem;
 	background: var(--sdi-color-white);
@@ -59,9 +59,9 @@
 .sdi-section--navy .sdi-form__field input,
 .sdi-section--navy .sdi-form__field select,
 .sdi-section--navy .sdi-form__field textarea {
-	background: var(--sdi-color-navy-mid);
-	color: var(--sdi-color-white);
-	border-color: rgba(191, 191, 197, 0.4);
+	background: var(--sdi-color-offwhite);
+	color: var(--sdi-color-navy);
+	border-color: var(--sdi-color-navy-soft);
 }
 
 .sdi-form__field input:focus-visible,

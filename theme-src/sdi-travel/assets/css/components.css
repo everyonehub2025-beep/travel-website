@@ -92,6 +92,68 @@
 	}
 }
 
+/* ---------- Compact page-header band (every interior page) ---------- */
+
+.sdi-page-header {
+	background: var(--sdi-color-navy);
+	position: relative;
+	overflow: hidden;
+}
+
+.sdi-page-header::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: url('../svg/route-line-navy.svg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	opacity: 0.6;
+}
+
+.sdi-page-header__inner {
+	position: relative;
+	padding: 36px 24px 42px;
+}
+
+.sdi-page-header__crumb {
+	margin: 0 0 14px;
+	font-size: 0.8rem;
+	color: var(--sdi-color-silver);
+}
+
+.sdi-page-header__crumb a {
+	color: var(--sdi-color-silver);
+}
+
+.sdi-page-header__crumb a:hover {
+	color: var(--sdi-color-white);
+}
+
+.sdi-page-header__eyebrow {
+	margin: 0 0 6px;
+	font-family: var(--sdi-font-heading);
+	font-weight: 500;
+	font-size: clamp(17px, 2vw, 20px);
+	letter-spacing: 0.01em;
+	color: var(--sdi-color-gold);
+}
+
+.sdi-page-header__title {
+	margin: 0;
+	font-size: clamp(30px, 3.6vw, 38px);
+	line-height: 1.12;
+	letter-spacing: -0.02em;
+	color: var(--sdi-color-white);
+}
+
+.sdi-page-header__subhead {
+	margin: 12px 0 0;
+	max-width: 62ch;
+	font-size: 1.03rem;
+	line-height: 1.7;
+	color: var(--sdi-color-border);
+}
+
 /* ---------- Narrow content container ---------- */
 
 .sdi-container--narrow {
@@ -374,6 +436,274 @@
 .elementor-widget-accordion .elementor-tab-content {
 	padding: 0 1.25em 1.25em;
 	color: var(--sdi-text-body);
+}
+
+/* ---------- Login / Sign Up panels ---------- */
+
+.sdi-auth-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+	gap: 36px;
+	align-items: start;
+}
+
+@media (max-width: 900px) {
+	.sdi-auth-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.sdi-auth-panel {
+	min-width: 0;
+	background: var(--sdi-bg-card);
+	border: 1px solid var(--sdi-border);
+	padding: 38px 36px;
+}
+
+@media (max-width: 480px) {
+	.sdi-auth-panel {
+		padding: 28px 22px;
+	}
+}
+
+.sdi-auth-kicker {
+	margin: 0 0 8px;
+	font-family: var(--sdi-font-heading);
+	font-size: 1.15rem;
+	letter-spacing: 0.01em;
+	color: var(--sdi-cta-text);
+}
+
+.sdi-auth-panel--dark {
+	position: relative;
+	overflow: hidden;
+	background: var(--sdi-color-navy);
+	border-top: 3px solid var(--sdi-color-gold);
+	padding: 34px 30px;
+	color: var(--sdi-color-white);
+}
+
+.sdi-auth-panel--dark::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: url('../svg/route-line-navy.svg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	opacity: 0.55;
+}
+
+.sdi-auth-panel--dark > * {
+	position: relative;
+}
+
+.sdi-auth-panel--dark .sdi-auth-kicker {
+	color: var(--sdi-color-gold);
+}
+
+.sdi-auth-panel--dark h2 {
+	color: var(--sdi-color-white);
+	max-width: 22ch;
+}
+
+.sdi-auth-panel--dark p {
+	color: var(--sdi-color-border);
+	max-width: 38ch;
+}
+
+.sdi-auth-price-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 28px;
+	margin-top: 26px;
+}
+
+.sdi-auth-price {
+	margin: 0;
+	font-family: var(--sdi-font-heading);
+	font-size: 2.1rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	color: var(--sdi-color-gold);
+}
+
+.sdi-auth-price-label {
+	margin: 8px 0 0;
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: var(--sdi-color-platinum);
+}
+
+.sdi-auth-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 18px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.sdi-auth-checkbox {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 0.9rem;
+	cursor: pointer;
+}
+
+.sdi-auth-checkbox input {
+	width: 18px;
+	height: 18px;
+	accent-color: var(--sdi-color-gold);
+}
+
+.sdi-auth-link {
+	font-size: 0.9rem;
+	text-decoration: underline;
+	text-decoration-color: var(--sdi-color-gold);
+	text-underline-offset: 4px;
+}
+
+.sdi-auth-error {
+	margin: 0;
+	padding: 14px 16px;
+	background: #fdf3f1;
+	border-left: 3px solid var(--sdi-danger);
+	font-size: 0.9rem;
+	color: var(--sdi-danger);
+}
+
+.sdi-auth-note {
+	margin: 0;
+	padding: 14px 16px;
+	background: var(--sdi-color-fill-muted);
+	border-left: 3px solid var(--sdi-color-gold);
+	font-size: 0.9rem;
+	color: var(--sdi-cta-text);
+}
+
+.sdi-auth-sidecard {
+	background: var(--sdi-bg-card);
+	border: 1px solid var(--sdi-border);
+	padding: 26px 24px;
+}
+
+.sdi-auth-sidecard + .sdi-auth-sidecard {
+	margin-top: 16px;
+}
+
+.sdi-auth-eyebrow-label {
+	margin: 0;
+	font-weight: 600;
+	font-size: 0.66rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--sdi-color-silver);
+}
+
+.sdi-auth-faq-item {
+	padding: 14px 0;
+	border-bottom: 1px solid var(--sdi-border-light);
+}
+
+.sdi-auth-faq-item:last-child {
+	border-bottom: none;
+}
+
+.sdi-auth-faq-item p:first-child {
+	margin: 0;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.sdi-auth-faq-item p:last-child {
+	margin: 5px 0 0;
+	font-size: 0.9rem;
+	color: var(--sdi-color-text-secondary);
+}
+
+.sdi-auth-security-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1px;
+	background: var(--sdi-border);
+	border: 1px solid var(--sdi-border);
+}
+
+.sdi-auth-security-grid > div {
+	background: var(--sdi-bg-page);
+	padding: 22px 20px;
+	flex: 1 1 220px;
+	min-width: 0;
+}
+
+.sdi-auth-security-grid p:first-child {
+	margin: 0;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.sdi-auth-security-grid p:last-child {
+	margin: 7px 0 0;
+	font-size: 0.9rem;
+	color: var(--sdi-color-text-secondary);
+}
+
+/* ---------- Tier picker (Sign Up form) ---------- */
+
+.sdi-tier-pick {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 12px;
+}
+
+@media (max-width: 480px) {
+	.sdi-tier-pick {
+		grid-template-columns: 1fr;
+	}
+}
+
+.sdi-tier-pick__option {
+	display: block;
+	position: relative;
+	border: 1px solid var(--sdi-color-navy-soft);
+	border-radius: var(--sdi-radius);
+	padding: 16px 18px;
+	cursor: pointer;
+	background: var(--sdi-bg-card);
+}
+
+.sdi-tier-pick__option:has(input:checked) {
+	border-color: var(--sdi-color-gold);
+	box-shadow: 0 0 0 1px var(--sdi-color-gold);
+}
+
+.sdi-tier-pick__option input {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	accent-color: var(--sdi-color-gold);
+}
+
+.sdi-tier-pick__label {
+	display: block;
+	font-weight: 600;
+	font-size: 0.95rem;
+	padding-right: 24px;
+}
+
+.sdi-tier-pick__price {
+	display: block;
+	margin-top: 6px;
+	font-family: var(--sdi-font-heading);
+	font-size: 1.3rem;
+	color: var(--sdi-color-navy);
+}
+
+.sdi-tier-pick__price span {
+	font-family: var(--sdi-font-body);
+	font-size: 0.75rem;
+	color: var(--sdi-text-muted);
+	font-weight: 400;
 }
 
 /* ---------- Team / leadership cards (About Us) ---------- */

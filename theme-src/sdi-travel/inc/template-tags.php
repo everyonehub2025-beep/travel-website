@@ -29,16 +29,77 @@ function sdi_image_placeholder( $label, $ratio = '16/9', $variant = 'navy' ) {
 }
 
 /**
- * Print the site logo (image if set, text fallback otherwise), linked home.
+ * Print the site logo image (unlinked — the calling markup wraps it in the
+ * home link), text fallback if no custom logo has been set.
  */
 function sdi_the_logo() {
-	if ( has_custom_logo() ) {
-		the_custom_logo();
+	$logo_id = get_theme_mod( 'custom_logo' );
+
+	if ( $logo_id ) {
+		echo wp_get_attachment_image( $logo_id, 'medium', false, array( 'class' => 'sdi-header__logo-img' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() escapes internally.
 		return;
 	}
 	?>
-	<a class="sdi-header__logo-text" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+	<span class="sdi-header__logo-text"><?php bloginfo( 'name' ); ?></span>
 	<?php
+}
+
+/**
+ * Compact navy "page header" band used at the top of every interior page:
+ * breadcrumb, small gold eyebrow, serif H1, one-sentence subhead, over a
+ * dotted route-line motif. Replaces the old full-height hero pattern on
+ * every page except the Homepage, which keeps its own larger hero.
+ *
+ * @param array<string,string> $args {
+ *     @type string $breadcrumb Current page label shown after "Home / ".
+ *     @type string $eyebrow    Small gold line above the heading.
+ *     @type string $title      Page H1.
+ *     @type string $subhead    One-sentence supporting copy.
+ * }
+ */
+function sdi_page_header_band( $args ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'breadcrumb' => '',
+			'eyebrow'    => '',
+			'title'      => get_the_title(),
+			'subhead'    => '',
+		)
+	);
+	?>
+	<section class="sdi-page-header">
+		<div class="sdi-container sdi-page-header__inner">
+			<p class="sdi-page-header__crumb">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'sdi-travel' ); ?></a> / <?php echo esc_html( $args['breadcrumb'] ); ?>
+			</p>
+			<?php if ( $args['eyebrow'] ) : ?>
+				<p class="sdi-page-header__eyebrow"><?php echo esc_html( $args['eyebrow'] ); ?></p>
+			<?php endif; ?>
+			<h1 class="sdi-page-header__title"><?php echo esc_html( $args['title'] ); ?></h1>
+			<?php if ( $args['subhead'] ) : ?>
+				<p class="sdi-page-header__subhead"><?php echo esc_html( $args['subhead'] ); ?></p>
+			<?php endif; ?>
+		</div>
+	</section>
+	<?php
+}
+
+/**
+ * URL of the site's native Member Login page (a real Page created by the
+ * content importer, template "Member Login") — falls back to wp-login.php
+ * only if that page hasn't been created yet, e.g. mid-setup.
+ *
+ * @return string
+ */
+function sdi_get_login_url() {
+	$page = get_page_by_path( 'member-login' );
+
+	if ( $page instanceof WP_Post ) {
+		return get_permalink( $page );
+	}
+
+	return wp_login_url( get_permalink() ? get_permalink() : home_url( '/' ) );
 }
 
 /**

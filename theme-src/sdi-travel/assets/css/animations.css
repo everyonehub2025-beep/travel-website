@@ -15,13 +15,13 @@
  */
 .js .sdi-animate {
 	opacity: 0;
-	transform: translateY(24px) scale(0.98);
-	transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+	transform: translateY(18px);
+	transition: opacity var(--sdi-motion-reveal) var(--sdi-ease), transform var(--sdi-motion-reveal) var(--sdi-ease);
 }
 
 .js .sdi-animate.is-visible {
 	opacity: 1;
-	transform: translateY(0) scale(1);
+	transform: none;
 }
 
 .js .sdi-animate--fade {
@@ -44,47 +44,27 @@
 	transform: translateX(0);
 }
 
-.js .sdi-animate--scale {
-	transform: scale(0.94);
-}
-
-.js .sdi-animate--scale.is-visible {
-	transform: scale(1);
-}
-
 /* Staggered children: add data-sdi-stagger to a container of .sdi-animate items */
-[data-sdi-stagger] > .sdi-animate:nth-child(1) { transition-delay: 0.05s; }
-[data-sdi-stagger] > .sdi-animate:nth-child(2) { transition-delay: 0.12s; }
-[data-sdi-stagger] > .sdi-animate:nth-child(3) { transition-delay: 0.19s; }
-[data-sdi-stagger] > .sdi-animate:nth-child(4) { transition-delay: 0.26s; }
-[data-sdi-stagger] > .sdi-animate:nth-child(5) { transition-delay: 0.33s; }
-[data-sdi-stagger] > .sdi-animate:nth-child(6) { transition-delay: 0.40s; }
-[data-sdi-stagger] > .sdi-animate:nth-child(7) { transition-delay: 0.47s; }
+[data-sdi-stagger] > .sdi-animate:nth-child(1) { transition-delay: calc(var(--sdi-motion-stagger) * 0); }
+[data-sdi-stagger] > .sdi-animate:nth-child(2) { transition-delay: calc(var(--sdi-motion-stagger) * 1); }
+[data-sdi-stagger] > .sdi-animate:nth-child(3) { transition-delay: calc(var(--sdi-motion-stagger) * 2); }
+[data-sdi-stagger] > .sdi-animate:nth-child(4) { transition-delay: calc(var(--sdi-motion-stagger) * 3); }
+[data-sdi-stagger] > .sdi-animate:nth-child(5) { transition-delay: calc(var(--sdi-motion-stagger) * 4); }
+[data-sdi-stagger] > .sdi-animate:nth-child(6) { transition-delay: calc(var(--sdi-motion-stagger) * 5); }
+[data-sdi-stagger] > .sdi-animate:nth-child(7) { transition-delay: calc(var(--sdi-motion-stagger) * 6); }
 
 /* Hover lift, applied to cards/images across the site. The deeper,
    gold-tinted shadow itself lives in base.css alongside .sdi-card's resting
    shadow (one source of truth for that value) — this only owns the lift
-   transform, so the two rules never fight over which shadow wins. */
+   transform, so the two rules never fight over which shadow wins. No scale
+   anywhere in this system — translateY plus color/shadow only. */
 .sdi-hover-lift {
-	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+	transition: transform var(--sdi-motion-state) var(--sdi-ease), box-shadow var(--sdi-motion-state) var(--sdi-ease), border-color var(--sdi-motion-state) var(--sdi-ease);
 }
 
 .sdi-hover-lift:hover,
 .sdi-hover-lift:focus-within {
 	transform: translateY(-6px);
-}
-
-/* Slow, subtle zoom on placeholder/media blocks when hovered inside a card */
-.sdi-hover-zoom {
-	overflow: hidden;
-}
-
-.sdi-hover-zoom > * {
-	transition: transform 0.5s ease;
-}
-
-.sdi-hover-zoom:hover > * {
-	transform: scale(1.04);
 }
 
 @media (prefers-reduced-motion: reduce) {

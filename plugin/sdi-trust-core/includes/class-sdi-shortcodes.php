@@ -94,16 +94,35 @@ class SDI_Shortcodes {
 		}
 
 		$user_id = get_current_user_id();
+		$user    = get_userdata( $user_id );
+
+		$referrals   = SDI_Referrals::get_for_member( $user_id );
+		$status_tabs = array_count_values( wp_list_pluck( $referrals, 'status' ) );
 
 		return $this->render(
 			'dashboard.php',
 			array(
-				'user_id'      => $user_id,
-				'tier_status'  => SDI_Tiers::get_status( $user_id ),
-				'referrals'    => SDI_Referrals::get_for_member( $user_id ),
-				'ledger'       => SDI_Points::get_history( $user_id, 100 ),
-				'membership'   => SDI_Membership::get_status_label( $user_id ),
-				'active_tab'   => isset( $_GET['sdi_tab'] ) ? sanitize_key( wp_unslash( $_GET['sdi_tab'] ) ) : 'overview', // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only tab selector, no state change.
+				'user_id'         => $user_id,
+				'user'            => $user,
+				'tier_status'     => SDI_Tiers::get_status( $user_id ),
+				'referrals'       => $referrals,
+				'confirmed_count' => isset( $status_tabs['approved'] ) ? $status_tabs['approved'] : 0,
+				'pending_count'   => isset( $status_tabs['pending'] ) ? $status_tabs['pending'] : 0,
+				'ledger'          => SDI_Points::get_history( $user_id, 10 ),
+				'membership'      => SDI_Membership::get_status_label( $user_id ),
+				'plan'            => SDI_Membership::get_plan( $user_id ),
+				'is_active'       => SDI_Membership::is_active_member( $user_id ),
+				'referral_link'   => class_exists( 'SDI_Auth' ) ? SDI_Auth::get_referral_link( $user_id ) : '',
+				'member_since'    => get_user_meta( $user_id, 'sdi_member_since', true ),
+				'auto_renew'      => 'no' !== get_user_meta( $user_id, 'sdi_auto_renew', true ),
+				'dependents'      => (array) get_user_meta( $user_id, 'sdi_dependents', true ),
+				'email_prefs'     => wp_parse_args(
+					(array) get_user_meta( $user_id, 'sdi_email_prefs', true ),
+					array( 'newsletter' => true, 'scholarships' => true, 'partner_offers' => false )
+				),
+				'donations'       => SDI_Public::get_donation_history( $user_id ),
+				'offers'          => apply_filters( 'sdi_partner_offers', array() ),
+				'active_tab'      => isset( $_GET['sdi_tab'] ) ? sanitize_key( wp_unslash( $_GET['sdi_tab'] ) ) : 'overview', // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only tab selector, no state change.
 			)
 		);
 	}
@@ -230,6 +249,13 @@ class SDI_Shortcodes {
 		$name  = isset( $_POST['sdi_referred_name'] ) ? sanitize_text_field( wp_unslash( $_POST['sdi_referred_name'] ) ) : '';
 		$email = isset( $_POST['sdi_referred_email'] ) ? sanitize_email( wp_unslash( $_POST['sdi_referred_email'] ) ) : '';
 		$phone = isset( $_POST['sdi_referred_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['sdi_referred_phone'] ) ) : '';
+
+		// The dashboard's compact "invite by email" form only collects an
+		// email address — fall back to its local part as the referred
+		// person's name rather than forcing a second field for that flow.
+		if ( '' === $name && $email ) {
+			$name = ucwords( str_replace( array( '.', '_' ), ' ', strstr( $email, '@', true ) ) );
+		}
 
 		$result = SDI_Referrals::submit( get_current_user_id(), $name, $email, $phone );
 

@@ -84,6 +84,7 @@ require_once SDI_TC_PATH . 'includes/class-sdi-points.php';
 require_once SDI_TC_PATH . 'includes/class-sdi-tiers.php';
 require_once SDI_TC_PATH . 'includes/class-sdi-referrals.php';
 require_once SDI_TC_PATH . 'includes/class-sdi-membership.php';
+require_once SDI_TC_PATH . 'includes/class-sdi-auth.php';
 require_once SDI_TC_PATH . 'includes/interface-sdi-fintech-provider.php';
 require_once SDI_TC_PATH . 'includes/class-sdi-fintech-null-provider.php';
 require_once SDI_TC_PATH . 'includes/class-sdi-fintech.php';
@@ -130,6 +131,20 @@ function sdi_tc_bootstrap() {
 	if ( is_admin() ) {
 		SDI_Admin::instance();
 	}
+
+	add_action( 'admin_post_sdi_signup', array( 'SDI_Auth', 'handle_signup' ) );
+	add_action( 'admin_post_nopriv_sdi_signup', array( 'SDI_Auth', 'handle_signup' ) );
+	add_action( 'admin_post_sdi_verify_email', array( 'SDI_Auth', 'handle_verify_email' ) );
+	add_action( 'admin_post_nopriv_sdi_verify_email', array( 'SDI_Auth', 'handle_verify_email' ) );
+	add_action( 'admin_post_sdi_member_login', array( 'SDI_Auth', 'handle_login' ) );
+	add_action( 'admin_post_nopriv_sdi_member_login', array( 'SDI_Auth', 'handle_login' ) );
+	add_action( 'admin_post_sdi_account_update', array( 'SDI_Auth', 'handle_account_update' ) );
+	add_action( 'admin_post_sdi_add_dependent', array( 'SDI_Auth', 'handle_add_dependent' ) );
+	add_action( 'template_redirect', array( 'SDI_Auth', 'maybe_redirect_logged_in' ) );
+	add_action( 'show_user_profile', array( 'SDI_Auth', 'render_profile_fields' ) );
+	add_action( 'edit_user_profile', array( 'SDI_Auth', 'render_profile_fields' ) );
+	add_action( 'personal_options_update', array( 'SDI_Auth', 'save_profile_fields' ) );
+	add_action( 'edit_user_profile_update', array( 'SDI_Auth', 'save_profile_fields' ) );
 }
 add_action( 'plugins_loaded', 'sdi_tc_bootstrap' );
 add_action( 'admin_init', array( 'SDI_Activator', 'maybe_upgrade' ) );
