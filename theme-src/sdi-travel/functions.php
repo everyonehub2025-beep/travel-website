@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SDI_THEME_VERSION', '1.0.0' );
+define( 'SDI_THEME_VERSION', '1.1.0' );
 define( 'SDI_THEME_DIR', get_template_directory() );
 define( 'SDI_THEME_URI', get_template_directory_uri() );
 
