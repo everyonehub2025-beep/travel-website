@@ -1,0 +1,237 @@
+/*
+ * SDI Travel — base styles.
+ * Loaded on every front-end request. Scoped to be gentle with Elementor's
+ * own output: no aggressive resets on classes Elementor owns.
+ */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	background: var(--sdi-bg-page);
+	color: var(--sdi-text-body);
+	font-family: var(--sdi-font-body);
+	font-size: 16px;
+	line-height: 1.65;
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--sdi-font-heading);
+	color: var(--sdi-text-body);
+	line-height: 1.25;
+	margin: 0 0 0.6em;
+	font-weight: 600;
+}
+
+h1 { font-size: clamp(2rem, 1.6rem + 1.6vw, 3.25rem); }
+h2 { font-size: clamp(1.6rem, 1.35rem + 1vw, 2.4rem); }
+h3 { font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.75rem); }
+
+p {
+	margin: 0 0 1.2em;
+}
+
+a {
+	color: var(--sdi-color-navy-mid);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.sdi-pull-quote {
+	font-family: var(--sdi-font-heading);
+	font-style: italic;
+	font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.85rem);
+	color: var(--sdi-color-navy-mid);
+	border-left: 3px solid var(--sdi-cta);
+	padding-left: 1em;
+	margin: 1.5em 0;
+}
+
+/* ---------- Layout ---------- */
+
+.sdi-container {
+	max-width: var(--sdi-container-max);
+	margin-inline: auto;
+	padding-inline: 24px;
+}
+
+.sdi-section {
+	padding-block: clamp(48px, 6vw, 96px);
+}
+
+/* Alternating light/navy section backgrounds, per brand guidelines. */
+
+.sdi-section--light {
+	background: var(--sdi-bg-page);
+	color: var(--sdi-text-body);
+}
+
+.sdi-section--navy {
+	background: var(--sdi-bg-section-alt);
+	color: var(--sdi-text-on-navy);
+}
+
+.sdi-section--navy h1,
+.sdi-section--navy h2,
+.sdi-section--navy h3,
+.sdi-section--navy h4,
+.sdi-section--navy p {
+	color: var(--sdi-text-on-navy);
+}
+
+.sdi-section--navy .sdi-card {
+	background: var(--sdi-color-navy-mid);
+	border-color: rgba(191, 191, 197, 0.25);
+}
+
+/* ---------- Buttons — gold reserved for primary CTAs only ---------- */
+
+.sdi-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+	font-family: var(--sdi-font-body);
+	font-weight: 600;
+	font-size: 0.95rem;
+	padding: 0.85em 1.9em;
+	border-radius: 4px;
+	text-decoration: none;
+	border: 2px solid transparent;
+	cursor: pointer;
+	transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.sdi-btn--primary {
+	background-color: var(--sdi-cta);
+	color: var(--sdi-color-navy);
+}
+
+.sdi-btn--primary:hover,
+.sdi-btn--primary:focus-visible {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 24px rgba(200, 155, 60, 0.35);
+}
+
+.sdi-btn--outline {
+	background: transparent;
+	border-color: currentColor;
+	color: inherit;
+}
+
+.sdi-btn--outline:hover,
+.sdi-btn--outline:focus-visible {
+	background: var(--sdi-color-navy);
+	border-color: var(--sdi-color-navy);
+	color: var(--sdi-color-white);
+}
+
+.sdi-section--navy .sdi-btn--outline {
+	border-color: var(--sdi-color-white);
+}
+
+.sdi-section--navy .sdi-btn--outline:hover {
+	background: var(--sdi-color-white);
+	color: var(--sdi-color-navy);
+}
+
+/* ---------- Cards ---------- */
+
+.sdi-card {
+	background: var(--sdi-bg-card);
+	border: 1px solid var(--sdi-border);
+	border-radius: var(--sdi-radius);
+	box-shadow: var(--sdi-shadow-card);
+	padding: 2em;
+}
+
+/* ---------- Grids ---------- */
+
+.sdi-grid {
+	display: grid;
+	gap: 1.75rem;
+}
+
+.sdi-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.sdi-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.sdi-grid--4 { grid-template-columns: repeat(4, 1fr); }
+.sdi-grid--7 { grid-template-columns: repeat(4, 1fr); }
+
+/* ---------- Image placeholder blocks (no demo photography shipped) ---------- */
+
+.sdi-placeholder {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, var(--sdi-color-navy) 0%, var(--sdi-color-navy-mid) 100%);
+	border-radius: var(--sdi-radius);
+	color: var(--sdi-color-platinum);
+	text-align: center;
+	overflow: hidden;
+	min-height: 220px;
+}
+
+.sdi-placeholder::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle at 20% 20%, rgba(200, 155, 60, 0.18), transparent 45%),
+		radial-gradient(circle at 80% 80%, rgba(191, 191, 197, 0.12), transparent 45%);
+}
+
+.sdi-placeholder__label {
+	position: relative;
+	font-size: 0.85rem;
+	letter-spacing: 0.04em;
+	padding: 0.5em 1.25em;
+	max-width: 80%;
+}
+
+.sdi-placeholder--light {
+	background: var(--sdi-color-offwhite);
+	border: 1px dashed var(--sdi-border);
+	color: var(--sdi-text-muted);
+}
+
+.sdi-placeholder--light::before {
+	display: none;
+}
+
+/* ---------- Responsive breakpoints: 1200 / 1024 / 768 / 480 ---------- */
+
+@media (max-width: 1200px) {
+	.sdi-container { padding-inline: 20px; }
+}
+
+@media (max-width: 1024px) {
+	.sdi-grid--4,
+	.sdi-grid--7 { grid-template-columns: repeat(2, 1fr); }
+	.sdi-grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+	.sdi-grid--2,
+	.sdi-grid--3,
+	.sdi-grid--4,
+	.sdi-grid--7 { grid-template-columns: 1fr; }
+
+	.sdi-section { padding-block: 48px; }
+}
+
+@media (max-width: 480px) {
+	.sdi-container { padding-inline: 16px; }
+
+	.sdi-btn { width: 100%; justify-content: center; }
+}

@@ -1,0 +1,96 @@
+/*
+ * SDI Travel — animation utility classes.
+ *
+ * Same family of motion the Careox base theme uses (scroll-triggered
+ * fade/rise-ins, gentle hover lift on cards and buttons) rebuilt as our
+ * own small, dependency-free utility set so it survives independently of
+ * any bundled vendor JS. Respects prefers-reduced-motion throughout.
+ */
+
+/*
+ * Hidden-until-revealed state only applies when JavaScript is confirmed
+ * available (the `js` class is added synchronously in header.php before
+ * paint). Without it, .sdi-animate content is simply visible — motion is
+ * a progressive enhancement, never a way to hide content.
+ */
+.js .sdi-animate {
+	opacity: 0;
+	transform: translateY(24px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.js .sdi-animate.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.js .sdi-animate--fade {
+	transform: none;
+}
+
+.js .sdi-animate--left {
+	transform: translateX(-32px);
+}
+
+.js .sdi-animate--left.is-visible {
+	transform: translateX(0);
+}
+
+.js .sdi-animate--right {
+	transform: translateX(32px);
+}
+
+.js .sdi-animate--right.is-visible {
+	transform: translateX(0);
+}
+
+.js .sdi-animate--scale {
+	transform: scale(0.94);
+}
+
+.js .sdi-animate--scale.is-visible {
+	transform: scale(1);
+}
+
+/* Staggered children: add data-sdi-stagger to a container of .sdi-animate items */
+[data-sdi-stagger] > .sdi-animate:nth-child(1) { transition-delay: 0.05s; }
+[data-sdi-stagger] > .sdi-animate:nth-child(2) { transition-delay: 0.12s; }
+[data-sdi-stagger] > .sdi-animate:nth-child(3) { transition-delay: 0.19s; }
+[data-sdi-stagger] > .sdi-animate:nth-child(4) { transition-delay: 0.26s; }
+[data-sdi-stagger] > .sdi-animate:nth-child(5) { transition-delay: 0.33s; }
+[data-sdi-stagger] > .sdi-animate:nth-child(6) { transition-delay: 0.40s; }
+[data-sdi-stagger] > .sdi-animate:nth-child(7) { transition-delay: 0.47s; }
+
+/* Hover lift, applied to cards/images across the site */
+.sdi-hover-lift {
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sdi-hover-lift:hover,
+.sdi-hover-lift:focus-within {
+	transform: translateY(-4px);
+	box-shadow: var(--sdi-shadow-card);
+}
+
+/* Slow, subtle zoom on placeholder/media blocks when hovered inside a card */
+.sdi-hover-zoom {
+	overflow: hidden;
+}
+
+.sdi-hover-zoom > * {
+	transition: transform 0.5s ease;
+}
+
+.sdi-hover-zoom:hover > * {
+	transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sdi-animate,
+	.sdi-hover-lift,
+	.sdi-hover-zoom > * {
+		transition: none !important;
+		transform: none !important;
+		opacity: 1 !important;
+	}
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+	<g fill="#C89B3C" fill-opacity="0.35">
+		<circle cx="6" cy="6" r="2"/><circle cx="30" cy="6" r="2"/><circle cx="54" cy="6" r="2"/><circle cx="78" cy="6" r="2"/><circle cx="102" cy="6" r="2"/>
+		<circle cx="6" cy="30" r="2"/><circle cx="30" cy="30" r="2"/><circle cx="54" cy="30" r="2"/><circle cx="78" cy="30" r="2"/><circle cx="102" cy="30" r="2"/>
+		<circle cx="6" cy="54" r="2"/><circle cx="30" cy="54" r="2"/><circle cx="54" cy="54" r="2"/><circle cx="78" cy="54" r="2"/><circle cx="102" cy="54" r="2"/>
+		<circle cx="6" cy="78" r="2"/><circle cx="30" cy="78" r="2"/><circle cx="54" cy="78" r="2"/><circle cx="78" cy="78" r="2"/><circle cx="102" cy="78" r="2"/>
+		<circle cx="6" cy="102" r="2"/><circle cx="30" cy="102" r="2"/><circle cx="54" cy="102" r="2"/><circle cx="78" cy="102" r="2"/><circle cx="102" cy="102" r="2"/>
+	</g>
+</svg>

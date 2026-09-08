@@ -1,0 +1,39 @@
+/*
+ * SDI brand design tokens — the single place color/type values live.
+ * Elementor widgets should be built against the matching Elementor Global
+ * Kit colors/fonts (kept in sync by inc/class-sdi-elementor-kit.php) so an
+ * editor never has to hand-pick a hex value; these CSS variables back
+ * every non-Elementor template file (header, footer, 404, plugin
+ * dashboard) so the whole site — theme and plugin alike — rebrands from
+ * this one file.
+ */
+
+:root {
+	/* Brand palette */
+	--sdi-color-navy: #0A1D3B;      /* Primary Navy — headers, nav, footer, body text on light */
+	--sdi-color-navy-mid: #102448;  /* Midnight Navy — section backgrounds, hover states */
+	--sdi-color-silver: #97999D;    /* Cool Silver — secondary text, dividers, icon accents */
+	--sdi-color-platinum: #BFBFC5;  /* Platinum — borders, card backgrounds, subtle fills */
+	--sdi-color-offwhite: #F7F8FA;  /* Off-White — page background, never pure white */
+	--sdi-color-white: #FFFFFF;     /* White — cards, reversed text on navy */
+	--sdi-color-gold: #C89B3C;      /* Warm Gold — CTA buttons ONLY, never large fills */
+
+	/* Semantic aliases used throughout theme templates */
+	--sdi-bg-page: var(--sdi-color-offwhite);
+	--sdi-bg-card: var(--sdi-color-white);
+	--sdi-bg-section-alt: var(--sdi-color-navy);
+	--sdi-text-body: var(--sdi-color-navy);
+	--sdi-text-muted: var(--sdi-color-silver);
+	--sdi-text-on-navy: var(--sdi-color-white);
+	--sdi-border: var(--sdi-color-platinum);
+	--sdi-cta: var(--sdi-color-gold);
+
+	/* Typography */
+	--sdi-font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+	--sdi-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+	/* Layout */
+	--sdi-container-max: 1200px;
+	--sdi-radius: 8px;
+	--sdi-shadow-card: 0 8px 24px rgba(10, 29, 59, 0.08);
+}
