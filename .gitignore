@@ -1,0 +1,10 @@
+# Vendor theme package (Careox, purchased ThemeForest license) — kept locally
+# for build reference only. Not committed: it's a large third-party binary
+# bundle (~13MB of zips-within-zips) and its images/design assets are
+# licensed separately from the GPL code (see Licensing/README_License.txt
+# inside the package). Only our own original work is version-controlled.
+/theme/careox-100/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
